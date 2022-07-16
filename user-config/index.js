@@ -7,3 +7,4 @@ function findUserData(userLogin) {
 const userData = findUserData(userLogin)
 
 console.log(`your password is: ${userData.userPassword}`)
+console.log(`your userName is: ${userData.userName}`)
