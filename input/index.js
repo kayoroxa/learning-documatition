@@ -7,9 +7,11 @@ function app() {
   var userName = input('May I have your name? ')
 
   console.log(`Hello ${userName}!`)
+
+  var userName = input('May I have your age? ')
+  console.log(`You are ${userName} years old!`)
+
+  return app() //repeat the app again
 }
 
-// while true = loop infinito
-while (true) {
-  app()
-}
+app()
