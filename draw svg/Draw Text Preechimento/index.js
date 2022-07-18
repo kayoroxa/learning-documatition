@@ -1,13 +1,13 @@
-const svgPath = document.querySelectorAll('path')
+// const svgPath = document.querySelectorAll('path')
 
-const svgText = anime({
-  targets: svgPath,
-  loop: true,
-  direction: 'alternate',
+anime({
+  targets: '.shape2',
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
   duration: 700,
-  delay: (el, i) => {
-    return i * 500
+  delay: function (el, i) {
+    return i * 250
   },
+  direction: 'alternate',
+  loop: true,
 })

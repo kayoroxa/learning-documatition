@@ -4,18 +4,37 @@
 }
 
 body {
-  height: 100vh;
-  width: 100%;
   background-color: #363636;
-  display: flex;
-  justify-content: center;
+}
+
+.line1 {
+  left: 0;
+  width: 10vw;
+  height: 100vh;
+  position: absolute;
+  background-color: aqua;
+  height: 100px;
+}
+.shape1 {
+  width: 100vw;
+  height: 50vh;
   align-items: center;
-  align-content: center;
-
+  justify-content: center;
+  display: flex;
+  background-color: #be0202;
+}
+.shape2 {
+  width: 100vw;
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: #02be3a;
+  stroke: #ffffff;
+  stroke-width: 5;
 }
 
-path {
-  stroke: #fff;
-  stroke-width: 3;
-  
-}
+/* path {
+  stroke: rgb(0, 0, 0);
+  stroke-width: 2;
+} */
