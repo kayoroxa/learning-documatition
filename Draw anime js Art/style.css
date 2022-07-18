@@ -14,7 +14,7 @@ body {
 .line1 {
   position: absolute;
   left: 0;
-  width: 1vw;
+  width: 10vw;
   height: 100vh;
   background-color: aqua;
   height: 100px;
