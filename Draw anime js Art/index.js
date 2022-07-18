@@ -1,5 +1,5 @@
 anime({
-  targets: '.tittle1',
+  targets: '.tittle',
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
   duration: 700,
