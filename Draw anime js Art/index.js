@@ -1,5 +1,5 @@
 anime({
-  targets: '.shape2',
+  targets: '.tittle1',
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
   duration: 700,
@@ -8,3 +8,4 @@ anime({
   },
   direction: 'alternate',
   loop: true,
+})
