@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@600&display=swap');
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background: linear-gradient(#3a405a, #082d0f);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(44, 130, 204); */
+}
+.header {
+  width: 100%;
+  height: 100px;
+  margin-left: 30%;
+  margin-top: 2%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.header #title {
+  font-size: 3.5em;
+  color: #e9f1f7;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+.exercises {
+  width: 80%;
+  height: 80%;
+  /* background-color: red; */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+}
+
+.muscle:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.2);
+}
+
+.exercises .exercise-demonstration {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 120px;
+}
+
+.exercises .exercise-muscle {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 2em;
+  color: #e9f1f7;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding-left: 20%;
+  padding-bottom: 2%;
+}
