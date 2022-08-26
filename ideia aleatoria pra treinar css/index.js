@@ -1,6 +1,7 @@
 const title = document.querySelector('.header #title')
-anime({
-  targets: '.demostra1',
-  translateX: 250,
-  easing: 'easeInOutExpo',
-})
+
+var text = title.textContent
+
+title.setAttribute('data-content', text)
+
+console.log(text)
