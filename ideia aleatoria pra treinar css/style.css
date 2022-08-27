@@ -101,39 +101,31 @@ h1 {
 }
 
 .header .box-header {
-  width: 60px;
-  height: 60px;
-  background-color: #2ee24f;
+  width: 250px;
+  height: 50px;
+  background-color: #082d0f;
   left: 1%;
   top: 20%;
   position: relative;
-  border-radius: 10%;
+  border-radius: 5%;
+  overflow: hidden;
 }
 
-.header .box-header .ponto {
-  border-radius: 50%;
-  background-color: rgb(20, 18, 18);
-  width: 20%;
-  height: 20%;
-  left: 10%;
-  position: absolute;
-  cursor: pointer;
+.box-header a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 15px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-#ponto-1 {
-  top: 20%;
+.box-header a.active {
+  background-color: #11571e;
+  color: white;
 }
 
-#ponto-2 {
-  top: 42%;
-}
-
-#ponto-3 {
-  top: 63%;
-}
-
-.box-header .menu {
-  width: 100%;
-  height: 100%;
-  background-color: aqua;
+.box-header a:hover {
+  background-color: rgb(125, 145, 128);
+  color: black;
 }
