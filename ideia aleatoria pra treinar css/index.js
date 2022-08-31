@@ -1,4 +1,4 @@
-const title = document.querySelector('.header #title')
+const title = document.querySelector('.container-header #title')
 
 var text = title.textContent
 

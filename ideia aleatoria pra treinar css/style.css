@@ -2,7 +2,7 @@
 * {
   box-sizing: border-box;
 }
-
+/*----body-----*/
 body {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -16,75 +16,35 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: rgb(44, 130, 204); */
+  flex-wrap: wrap;
 }
-.header {
-  width: 70%;
+/*----body-----*/
+/*----container header-----*/
+.container-header {
+  width: 100%;
   height: 100px;
   margin-top: 2%;
   margin-bottom: 0;
   padding: 0;
+  display: flex;
+  justify-content: space-evenly;
 }
-.header #title {
+h1#title {
   font-size: 3.5em;
   color: #e9f1f7;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
-.exercises {
-  width: 80%;
-  height: 80%;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-img {
-  width: 90%;
-  height: 90%;
-  object-fit: cover; /*faz a img ficar do preencher oq vc setou*/
-}
 
-.muscle:hover {
-  transition: all 0.2s ease-in-out;
-  transform: scale(1.2);
-}
-
-.exercises .exercise-demonstration {
-  width: 50%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  margin: 120px;
-}
-
-.exercises .exercise-muscle {
-  width: 50%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-}
-
-h1 {
-  font-size: 2em;
-  color: #e9f1f7;
-  font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  padding-left: 20%;
-  padding-bottom: 2%;
-}
-
-.header #title {
+h1#title {
   position: relative;
   width: 50%;
-  left: 30%;
   margin: 0;
   padding: 0;
   cursor: pointer;
 }
 
-.header #title:before {
+h1#title:before {
   content: attr(data-content);
   position: absolute;
   left: 0%;
@@ -95,23 +55,22 @@ h1 {
   height: 100%;
 }
 
-.header #title:hover:before {
+h1#title:hover:before {
   width: 100%;
   color: #08cf2d;
 }
 
-.header .box-header {
-  width: 250px;
+.menu-header {
+  width: fit-content;
   height: 50px;
   background-color: #082d0f;
-  left: 1%;
   top: 20%;
   position: relative;
-  border-radius: 5%;
+  border-radius: 2%;
   overflow: hidden;
 }
 
-.box-header a {
+.menu-header a {
   float: left;
   color: #f2f2f2;
   text-align: center;
@@ -120,12 +79,61 @@ h1 {
   font-size: 17px;
 }
 
-.box-header a.active {
+.menu-header a.active {
   background-color: #11571e;
   color: white;
 }
 
-.box-header a:hover {
+.menu-header a:hover {
   background-color: rgb(125, 145, 128);
   color: black;
+}
+
+/*----container header-----*/
+/*----container exercise-----*/
+.container-exercise {
+  width: 100%;
+  height: 100%;
+  padding: 0 0 0 5%;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+img {
+  width: 70%;
+  height: 70%;
+  object-fit: cover; /*faz a img ficar do preencher oq vc setou*/
+}
+
+img#muscle-worked-img:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.2);
+}
+
+.exercise-subjects {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+h1#muscle-worked-title {
+  font-size: 3em;
+  color: #e9f1f7;
+  font-family: 'Montserrat', sans-serif;
+  background-color: aqua;
+  position: relative;
+  padding: 0;
+  margin: 0 15% 2%;
+}
+h1#exercise-demonstration-title {
+  font-size: 3em;
+  color: #e9f1f7;
+  font-family: 'Montserrat', sans-serif;
+  background-color: aqua;
+  position: relative;
+  padding: 0;
+  margin: 0 15% 2%;
 }
