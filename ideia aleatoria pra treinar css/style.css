@@ -53,6 +53,7 @@ h1#title:before {
   color: #08cf2d;
   transition: all 1s;
   height: 100%;
+  white-space: pre-wrap;
 }
 
 h1#title:hover:before {
