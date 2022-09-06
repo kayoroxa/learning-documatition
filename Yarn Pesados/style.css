@@ -32,15 +32,23 @@ video {
 
 p {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.9em;
+  font-size: 14px;
   background-color: hsl(43, 74%, 66%);
   width: 100%;
   height: fit-content;
   font-weight: 600;
-  padding-left: 1%;
+  padding-left: 2%;
 }
 p.videos-subtitles {
   position: absolute;
   top: 70%;
   width: 100%;
+}
+
+.front {
+  width: 200px;
+  height: 200px;
+  background-color: aqua;
+  position: absolute;
+  bottom: 0;
 }
