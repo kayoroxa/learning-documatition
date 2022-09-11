@@ -1,6 +1,13 @@
 var bnt = document.querySelector('.bnt')
-var videoSix = document.querySelector('#video-6-subtitle')
+var containerSuper = document.querySelector('.container-superior-All')
+var videoSixText = document.querySelector('#video-6-subtitle')
+var videSixVideo = document.querySelector('#video-6')
 
 bnt.addEventListener('click', function () {
-  videoSix.style.backgroundColor = 'red'
+  videoSixText.style.backgroundColor = 'red'
+  var videoCloned = videSixVideo.cloneNode(true)
+  containerSuper.appendChild(videoCloned)
+  containerSuper.appendChild(videoSixText)
 })
+
+console.log(videSixVideo.childNodes)

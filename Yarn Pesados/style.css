@@ -46,9 +46,22 @@ p.videos-subtitles {
 }
 
 .front {
-  width: 200px;
-  height: 200px;
+  width: fit-content;
+  height: fit-content;
   background-color: aqua;
   position: absolute;
-  bottom: 0;
+  bottom: 20%;
+  left: 20%;
+}
+
+/*--------*/
+.container-superior-All {
+  width: 70%;
+  height: 70%;
+  background-color: azure;
+  position: fixed;
+  display: flex;
+  flex-flow: row wrap;
+  top: 5%;
+  left: 15%;
 }
