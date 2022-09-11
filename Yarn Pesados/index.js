@@ -1,6 +1,6 @@
-var frontBox = document.querySelector(".front")
+var bnt = document.querySelector('.bnt')
+var videoSix = document.querySelector('#video-6-subtitle')
 
-
-frontBox.addEventListener("click", function onClick(event)){
-  
-}
+bnt.addEventListener('click', function () {
+  videoSix.style.backgroundColor = 'red'
+})
