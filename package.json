@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "animejs": "^3.2.1",
+    "ml-regression-multivariate-linear": "^2.0.4",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
