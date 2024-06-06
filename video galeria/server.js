@@ -6,10 +6,12 @@ const path = require('path')
 const app = express()
 const port = 3000
 
-app.use('/videos', express.static(path.join(__dirname, 'videos')))
+const pathVideos = path.join(__dirname, 'videos')
+
+app.use('/videos', express.static(pathVideos))
 
 app.get('/videos-list', (req, res) => {
-  const videosDir = path.join(__dirname, 'videos')
+  const videosDir = pathVideos
   const allVideos = fs.readdirSync(videosDir, (err, files) => {
     if (err) {
       return res.status(500).send('Unable to scan directory')
