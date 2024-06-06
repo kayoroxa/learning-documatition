@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Fluxograma</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #chat {
+        width: 90%;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .message {
+        padding: 5px;
+        margin: 5px 0;
+        border-radius: 60px;
+        padding: 15px;
+        width: fit-content;
+      }
+      .user {
+        text-align: right;
+        background-color: #f1f1f1;
+        margin-left: auto;
+      }
+      .bot {
+        text-align: left;
+        background-color: #e1f5fe;
+      }
+      .options {
+        margin-top: 10px;
+      }
+      .option {
+        display: inline-block;
+        background-color: #0277bd;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+      .option:hover {
+        background-color: #01579b;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chat">
+      <div class="message bot" id="initialMessage">
+        Selecione uma opção para começar:
+      </div>
+      <div class="options" id="options"></div>
+    </div>
+    <script type="module">
+      import { resultJson } from './output.js'
+
+      const nodes = resultJson.nodes
+      const edges = resultJson.edges
+      const chat = document.getElementById('chat')
+      const optionsDiv = document.getElementById('options')
+
+      let currentNodeId = nodes.find(node => node.main).id // Inicia no nó inicial do fluxograma
+
+      function findNodeById(id) {
+        return nodes.find(node => node.id === id)
+      }
+
+      function findEdgesFromNode(id) {
+        return edges.filter(edge => edge.source === id)
+      }
+
+      function displayNode(nodeId) {
+        const node = findNodeById(nodeId)
+        const messageDiv = document.createElement('div')
+
+        messageDiv.className = 'message bot'
+        messageDiv.innerHTML = node.value
+        chat.insertBefore(messageDiv, optionsDiv)
+
+        const outgoingEdges = findEdgesFromNode(nodeId)
+        optionsDiv.innerHTML = ''
+
+        outgoingEdges.forEach(edge => {
+          const targetNode = findNodeById(edge.target)
+          const optionDiv = document.createElement('div')
+          optionDiv.className = 'option'
+          optionDiv.innerHTML = targetNode.value //.split('<')[0] // Exibe somente o texto simples
+          optionDiv.onclick = () => handleOptionClick(targetNode.id)
+          optionsDiv.appendChild(optionDiv)
+        })
+      }
+
+      function handleOptionClick(nodeId) {
+        const userMessageDiv = document.createElement('div')
+        userMessageDiv.className = 'message user'
+        userMessageDiv.innerHTML = findNodeById(nodeId).value //.split('<')[0] // Exibe somente o texto simples
+        chat.insertBefore(userMessageDiv, optionsDiv)
+
+        displayNode(nodeId)
+      }
+
+      // Iniciar com o primeiro nó
+      displayNode(currentNodeId)
+    </script>
+  </body>
+</html>

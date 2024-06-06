@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="Electron" modified="2024-06-05T22:10:07.550Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="U2UjNKEFJAwOenJb0wIa" version="24.4.0" type="device">
+  <diagram name="Page-1" id="vn1AsdCULOqlFfYTPsrz">
+    <mxGraphModel dx="3240" dy="2507" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-2" target="7uWHuAJ6xrQ3mokk7cfY-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-2" target="7uWHuAJ6xrQ3mokk7cfY-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-2" target="v1yLCvl0intlZE79RyCJ-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kUwmHjW395yBMEKZOirB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-2" target="v1yLCvl0intlZE79RyCJ-21" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-480" y="310" />
+              <mxPoint x="-480" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-2" target="3v43l-vfuqtFA6C-Wyh_-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-2" target="3v43l-vfuqtFA6C-Wyh_-27" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-40" y="280" />
+              <mxPoint x="-400" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-2" value="trabalhe 30 minutos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-4" target="7uWHuAJ6xrQ3mokk7cfY-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-4" value="30 minutos é muito" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="-308.75" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-6" target="v1yLCvl0intlZE79RyCJ-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kUwmHjW395yBMEKZOirB-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="1" source="7uWHuAJ6xrQ3mokk7cfY-6" target="kUwmHjW395yBMEKZOirB-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="50" y="400" />
+              <mxPoint x="50" y="310" />
+              <mxPoint x="125" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-6" value="não sei se vai ser em vão" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="-105" y="400" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7uWHuAJ6xrQ3mokk7cfY-8" value="Não é muito, o&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;dia tem 960 minutos.&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;div&gt;Você não trabalha muito, só acha que sim, porque não inicia o cronometro.&lt;/div&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-360" y="520" width="222.5" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-1" target="v1yLCvl0intlZE79RyCJ-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-1" target="3v43l-vfuqtFA6C-Wyh_-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="410" />
+              <mxPoint x="450" y="-165" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" parent="1" source="v1yLCvl0intlZE79RyCJ-1" target="3v43l-vfuqtFA6C-Wyh_-37" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-1" value="muito hard agora" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="110" y="400" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-3" value="mude as frase que não precise de explicações, e grave da metade do video pra frente, ninguem vai assistir essa parte" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="400" y="570" width="210" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-5" target="v1yLCvl0intlZE79RyCJ-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-5" target="v1yLCvl0intlZE79RyCJ-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-5" value="grave audios pro primo é sempre útil" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-65" y="520" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-17" target="v1yLCvl0intlZE79RyCJ-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-17" value="parece tanta coisa pra fazer..." style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-15" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-19" target="v1yLCvl0intlZE79RyCJ-21" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-19" value="1 dia gravando/trabalhando (no primo) 3&lt;span style=&quot;background-color: initial;&quot;&gt;0 minutos, é 1 video por semana&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-210" y="760" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kUwmHjW395yBMEKZOirB-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="v1yLCvl0intlZE79RyCJ-21" target="kUwmHjW395yBMEKZOirB-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v1yLCvl0intlZE79RyCJ-21" value="não quero mais trabalhar nisso" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-170" y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kUwmHjW395yBMEKZOirB-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="kUwmHjW395yBMEKZOirB-3" target="7uWHuAJ6xrQ3mokk7cfY-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="130" y="1030" />
+              <mxPoint x="130" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kUwmHjW395yBMEKZOirB-3" value="Você só precisa trabalhar 30 minutos no primo por dia, terá videos todas as semanas e tempo para fazer outras coisas durante a semana e hoje tbm.&lt;br&gt;&lt;br&gt;ter tempo para fazer ads e tudo mais" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-170" y="970" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="kUwmHjW395yBMEKZOirB-10" value="Veja a prioridade de tarefas mais importantes para seu négocio e escolha entre elas, começando do topo" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="150" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-2" target="3v43l-vfuqtFA6C-Wyh_-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-2" target="3v43l-vfuqtFA6C-Wyh_-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-2" target="3v43l-vfuqtFA6C-Wyh_-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-2" target="3v43l-vfuqtFA6C-Wyh_-27" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-270" y="180" />
+              <mxPoint x="-270" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-2" value="De boa, mas jaja eu faço." style="whiteSpace=wrap;html=1;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="-200" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-4" target="3v43l-vfuqtFA6C-Wyh_-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-4" value="você está empolgado com outra coisa?" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-330" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvVpNHKXcgOuZ71DeSL--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-6" target="PvVpNHKXcgOuZ71DeSL--3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-120" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-125" y="20" />
+              <mxPoint x="-125" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PfP-O7H28b6uJocJz2Sp-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-6" target="PfP-O7H28b6uJocJz2Sp-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-280" y="-60" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-140" y="20" />
+              <mxPoint x="-270" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-6" value="Você está cansado mentalmente?" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-200" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-8" target="3v43l-vfuqtFA6C-Wyh_-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="50" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="St1rouO8M4aThODcfpMJ-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="3v43l-vfuqtFA6C-Wyh_-8" target="St1rouO8M4aThODcfpMJ-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="80" y="100" />
+              <mxPoint x="80" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-8" value="Você não sabe porque quer adiar?" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-50" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-10" target="3v43l-vfuqtFA6C-Wyh_-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-515" y="-330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-10" value="Desative os recomendados, e veja logo que você está vendo no 2x.&lt;br&gt;&lt;br&gt;&lt;br&gt;Escreva no &quot;todo&quot;, e tire sua atenção disso, fique olhando o que você tem que fazer por alguns minutos.&lt;br&gt;&lt;br&gt;respire fundo e se imagine fazendo essa coisa que você está fazendo daqui a 30 minutos dps que trabalhar ( sentimento bom )" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-650" y="-280" width="270" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-12" target="3v43l-vfuqtFA6C-Wyh_-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PvVpNHKXcgOuZ71DeSL--7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-12" target="PvVpNHKXcgOuZ71DeSL--3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-12" value="Não consigo" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-137.5" y="-360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-14" target="3v43l-vfuqtFA6C-Wyh_-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-50" y="-220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="St1rouO8M4aThODcfpMJ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="3v43l-vfuqtFA6C-Wyh_-14" target="St1rouO8M4aThODcfpMJ-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-14" value="bote os pensamentos no &quot;todo&quot;,&lt;div&gt;Saia do PC,&amp;nbsp;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;tome banho,&lt;br&gt;vá la pra frente,&lt;br&gt;escute uma música motivadora,&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;b&gt;Faça algo que não seja tão doparminegico e só volte pro PC quando quiser trabalhar&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="200" y="-240" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-27" target="3v43l-vfuqtFA6C-Wyh_-29" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-560" y="220" />
+              <mxPoint x="-560" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6CogW4UlV8eXJmV6iY1X-1" value="JÁ GRAVEI O BRUTO" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="3v43l-vfuqtFA6C-Wyh_-30" vertex="1" connectable="0">
+          <mxGeometry x="-0.0081" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6CogW4UlV8eXJmV6iY1X-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-27" target="6CogW4UlV8eXJmV6iY1X-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-560" y="230" />
+              <mxPoint x="-560" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6CogW4UlV8eXJmV6iY1X-6" value="NÃO GRAVEI O BRUTO" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="6CogW4UlV8eXJmV6iY1X-5" vertex="1" connectable="0">
+          <mxGeometry x="0.03" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gws6LjGI7M7IPFBKlNkX-2" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=link;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-27" target="gws6LjGI7M7IPFBKlNkX-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-27" value="não sei por onde começar" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="-450" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-29" value="&lt;div&gt;Ordem de prioridade:&lt;br&gt;&lt;br&gt;-Editar intro&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- (regravar 5 primeiras frases)&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;-&amp;nbsp;(eleven labs / imagens)&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;Pegar exemplos de frases&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- CTA&lt;br&gt;&lt;br&gt;- Pegar Thumbs e Titulos&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-820" width="190" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-37" value="pegue thumbnails" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3v43l-vfuqtFA6C-Wyh_-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.227;entryY=0.001;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="3v43l-vfuqtFA6C-Wyh_-6" target="v1yLCvl0intlZE79RyCJ-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-110" y="230" />
+              <mxPoint x="155" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6CogW4UlV8eXJmV6iY1X-4" value="PEGAR FRASES:&lt;br&gt;pattern start.js&lt;div&gt;all pattern.txt&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Editar / Traduzir as frases:&lt;br&gt;primo-recording.js&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Gravar:&lt;br&gt;&lt;a href=&quot;http://127.0.0.1:8080/VIEWS/primo%20view/FDF%20PRIMO%20index.html?pb=true&quot;&gt;Blocos View - FDF&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Pegar Thumbs e Titulos&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-820" y="250" width="190" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="gws6LjGI7M7IPFBKlNkX-1" value="Se vai sair bote countdown" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-450" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvVpNHKXcgOuZ71DeSL--5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PvVpNHKXcgOuZ71DeSL--3" target="PvVpNHKXcgOuZ71DeSL--6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-10" y="-30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PvVpNHKXcgOuZ71DeSL--3" value="Terminei um grande projeto ontem" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-185" y="-60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvVpNHKXcgOuZ71DeSL--6" value="&lt;b&gt;Hipotese 1:&lt;/b&gt;&lt;br&gt;Se prepare mentalmente para trabalhar mais tarde, &lt;br&gt;&lt;br&gt;&lt;div&gt;Enquanto isso estude organização, automatização, AI, ads etc...&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Hipotese 2:&lt;/b&gt;&lt;br&gt;Saia das telas, para realmente descansar.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-17.5" y="-190" width="170" height="205" as="geometry" />
+        </mxCell>
+        <mxCell id="PfP-O7H28b6uJocJz2Sp-2" value="Canse o corpo:&lt;br&gt;Jogue futebol&lt;br&gt;&lt;br&gt;Va se alongar&lt;div&gt;Meditar:&lt;br&gt;https://youtu.be/kM8crupu9DM&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Tomar banho&lt;/div&gt;&lt;div&gt;Escutar uma música&lt;/div&gt;&lt;div&gt;Durma&lt;/div&gt;&lt;div&gt;Saia das telas, para realmente descansar.&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;NÃO SE ESTRESSE +&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-350" y="-290" width="180" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="St1rouO8M4aThODcfpMJ-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="St1rouO8M4aThODcfpMJ-1" target="3v43l-vfuqtFA6C-Wyh_-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="295" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="St1rouO8M4aThODcfpMJ-1" value="Primeiro ligue o cronometro depois veja se você quer&lt;div&gt;&lt;font style=&quot;font-size: 7px;&quot;&gt;falsa repulsa&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

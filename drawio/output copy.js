@@ -1,0 +1,330 @@
+export const resultJson = [
+  {
+    nodes: [
+      {
+        id: '7uWHuAJ6xrQ3mokk7cfY-2',
+        value: 'trabalhe 30 minutos',
+        style:
+          'rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;',
+      },
+      {
+        id: '7uWHuAJ6xrQ3mokk7cfY-4',
+        value: '30 minutos é muito',
+        style:
+          'rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;',
+      },
+      {
+        id: '7uWHuAJ6xrQ3mokk7cfY-6',
+        value: 'não sei se vai ser em vão',
+        style:
+          'rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;',
+      },
+      {
+        id: '7uWHuAJ6xrQ3mokk7cfY-8',
+        value:
+          'Não é muito, o<span style="background-color: initial;">&nbsp;dia tem 960 minutos.</span><div><span style="background-color: initial;"><div>Você não trabalha muito, só acha que sim, porque não inicia o cronometro.</div></span></div>',
+        style: 'rounded=0;whiteSpace=wrap;html=1;',
+      },
+      {
+        id: 'v1yLCvl0intlZE79RyCJ-1',
+        value: 'muito hard agora',
+        style:
+          'whiteSpace=wrap;html=1;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;',
+      },
+      {
+        id: 'v1yLCvl0intlZE79RyCJ-3',
+        value:
+          'mude as frase que não precise de explicações, e grave da metade do video pra frente, ninguem vai assistir essa parte',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'v1yLCvl0intlZE79RyCJ-5',
+        value: 'grave audios pro primo é sempre útil',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'v1yLCvl0intlZE79RyCJ-17',
+        value: 'parece tanta coisa pra fazer...',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'v1yLCvl0intlZE79RyCJ-19',
+        value:
+          '1 dia gravando/trabalhando (no primo) 3<span style="background-color: initial;">0 minutos, é 1 video por semana</span>',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'v1yLCvl0intlZE79RyCJ-21',
+        value: 'não quero mais trabalhar nisso',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'kUwmHjW395yBMEKZOirB-3',
+        value:
+          'Você só precisa trabalhar 30 minutos no primo por dia, terá videos todas as semanas e tempo para fazer outras coisas durante a semana e hoje tbm.<br><br>ter tempo para fazer ads e tudo mais',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'kUwmHjW395yBMEKZOirB-10',
+        value:
+          'Veja a prioridade de tarefas mais importantes para seu négocio e escolha entre elas, começando do topo',
+        style: 'rounded=0;whiteSpace=wrap;html=1;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-2',
+        value: 'De boa, mas jaja eu faço.',
+        style:
+          'whiteSpace=wrap;html=1;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-4',
+        value: 'você está empolgado com outra coisa?',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-6',
+        value: 'Você está cansado mentalmente?',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-8',
+        value: 'Você não sabe porque quer adiar?',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-10',
+        value:
+          'Desative os recomendados, e veja logo que você está vendo no 2x.<br><br><br>Escreva no "todo", e tire sua atenção disso, fique olhando o que você tem que fazer por alguns minutos.<br><br>respire fundo e se imagine fazendo essa coisa que você está fazendo daqui a 30 minutos dps que trabalhar ( sentimento bom )',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-12',
+        value: 'Não consigo',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-14',
+        value:
+          'bote os pensamentos no "todo",<div>Saia do PC,&nbsp;<br><span style="background-color: initial;">tome banho,<br>vá la pra frente,<br>escute uma música motivadora,&nbsp;<br><br><b>Faça algo que não seja tão doparminegico e só volte pro PC quando quiser trabalhar</b></span></div>',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '6CogW4UlV8eXJmV6iY1X-1',
+        value: 'JÁ GRAVEI O BRUTO',
+        style:
+          'edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];',
+      },
+      {
+        id: '6CogW4UlV8eXJmV6iY1X-6',
+        value: 'NÃO GRAVEI O BRUTO',
+        style:
+          'edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-27',
+        value: 'não sei por onde começar',
+        style:
+          'whiteSpace=wrap;html=1;rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-29',
+        value:
+          '<div>Ordem de prioridade:<br><br>-Editar intro</div><div><br></div><div>- (regravar 5 primeiras frases)<br><br></div><div>-&nbsp;(eleven labs / imagens)&nbsp;<span style="background-color: initial;">Pegar exemplos de frases</span></div><div><br></div><div>- CTA<br><br>- Pegar Thumbs e Titulos</div>',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: '3v43l-vfuqtFA6C-Wyh_-37',
+        value: 'pegue thumbnails',
+        style: 'rounded=0;whiteSpace=wrap;html=1;',
+      },
+      {
+        id: '6CogW4UlV8eXJmV6iY1X-4',
+        value:
+          'PEGAR FRASES:<br>pattern start.js<div>all pattern.txt<br></div><div><div><br></div><div>Editar / Traduzir as frases:<br>primo-recording.js<br></div><div><br></div><div>Gravar:<br><a href="http://127.0.0.1:8080/VIEWS/primo%20view/FDF%20PRIMO%20index.html?pb=true">Blocos View - FDF</a></div><div><br></div><div>- Pegar Thumbs e Titulos<br></div></div>',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'gws6LjGI7M7IPFBKlNkX-1',
+        value: 'Se vai sair bote countdown',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+      {
+        id: 'PvVpNHKXcgOuZ71DeSL--3',
+        value: 'Terminei um grande projeto ontem',
+        style: 'rounded=0;whiteSpace=wrap;html=1;',
+      },
+      {
+        id: 'PvVpNHKXcgOuZ71DeSL--6',
+        value:
+          '<b>Hipotese 1:</b><br>Se prepare mentalmente para trabalhar mais tarde, <br><br><div>Enquanto isso estude organização, automatização, AI, ads etc...<div><br></div></div><div><b>Hipotese 2:</b><br>Saia das telas, para realmente descansar.</div>',
+        style: 'rounded=0;whiteSpace=wrap;html=1;',
+      },
+      {
+        id: 'PfP-O7H28b6uJocJz2Sp-2',
+        value:
+          'Canse o corpo:<br>Jogue futebol<br><br>Va se alongar<div>Meditar:<br>https://youtu.be/kM8crupu9DM<br></div><div><br></div><div>Tomar banho</div><div>Escutar uma música</div><div>Durma</div><div>Saia das telas, para realmente descansar.<br></div><div><br></div><div><b>NÃO SE ESTRESSE +</b></div>',
+        style: 'rounded=0;whiteSpace=wrap;html=1;',
+      },
+      {
+        id: 'St1rouO8M4aThODcfpMJ-1',
+        value:
+          'Primeiro ligue o cronometro depois veja se você quer<div><font style="font-size: 7px;">falsa repulsa</font></div>',
+        style: 'whiteSpace=wrap;html=1;rounded=0;',
+      },
+    ],
+    edges: [
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-2',
+        target: '7uWHuAJ6xrQ3mokk7cfY-4',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-2',
+        target: '7uWHuAJ6xrQ3mokk7cfY-6',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-2',
+        target: 'v1yLCvl0intlZE79RyCJ-1',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-2',
+        target: 'v1yLCvl0intlZE79RyCJ-21',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-2',
+        target: '3v43l-vfuqtFA6C-Wyh_-2',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-2',
+        target: '3v43l-vfuqtFA6C-Wyh_-27',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-4',
+        target: '7uWHuAJ6xrQ3mokk7cfY-8',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-6',
+        target: 'v1yLCvl0intlZE79RyCJ-5',
+      },
+      {
+        source: '7uWHuAJ6xrQ3mokk7cfY-6',
+        target: 'kUwmHjW395yBMEKZOirB-10',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-1',
+        target: 'v1yLCvl0intlZE79RyCJ-3',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-1',
+        target: '3v43l-vfuqtFA6C-Wyh_-14',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-1',
+        target: '3v43l-vfuqtFA6C-Wyh_-37',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-5',
+        target: 'v1yLCvl0intlZE79RyCJ-1',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-5',
+        target: 'v1yLCvl0intlZE79RyCJ-17',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-17',
+        target: 'v1yLCvl0intlZE79RyCJ-19',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-19',
+        target: 'v1yLCvl0intlZE79RyCJ-21',
+      },
+      {
+        source: 'v1yLCvl0intlZE79RyCJ-21',
+        target: 'kUwmHjW395yBMEKZOirB-3',
+      },
+      {
+        source: 'kUwmHjW395yBMEKZOirB-3',
+        target: '7uWHuAJ6xrQ3mokk7cfY-6',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-2',
+        target: '3v43l-vfuqtFA6C-Wyh_-4',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-2',
+        target: '3v43l-vfuqtFA6C-Wyh_-6',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-2',
+        target: '3v43l-vfuqtFA6C-Wyh_-8',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-2',
+        target: '3v43l-vfuqtFA6C-Wyh_-27',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-4',
+        target: '3v43l-vfuqtFA6C-Wyh_-10',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-6',
+        target: 'PvVpNHKXcgOuZ71DeSL--3',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-6',
+        target: 'PfP-O7H28b6uJocJz2Sp-2',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-8',
+        target: '3v43l-vfuqtFA6C-Wyh_-14',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-8',
+        target: 'St1rouO8M4aThODcfpMJ-1',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-10',
+        target: '3v43l-vfuqtFA6C-Wyh_-12',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-12',
+        target: '3v43l-vfuqtFA6C-Wyh_-14',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-12',
+        target: 'PvVpNHKXcgOuZ71DeSL--3',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-14',
+        target: '3v43l-vfuqtFA6C-Wyh_-12',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-14',
+        target: 'St1rouO8M4aThODcfpMJ-1',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-27',
+        target: '3v43l-vfuqtFA6C-Wyh_-29',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-27',
+        target: '6CogW4UlV8eXJmV6iY1X-4',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-27',
+        target: 'gws6LjGI7M7IPFBKlNkX-1',
+      },
+      {
+        source: '3v43l-vfuqtFA6C-Wyh_-6',
+        target: 'v1yLCvl0intlZE79RyCJ-1',
+      },
+      {
+        source: 'PvVpNHKXcgOuZ71DeSL--3',
+        target: 'PvVpNHKXcgOuZ71DeSL--6',
+      },
+      {
+        source: 'St1rouO8M4aThODcfpMJ-1',
+        target: '3v43l-vfuqtFA6C-Wyh_-14',
+      },
+    ],
+  },
+]
