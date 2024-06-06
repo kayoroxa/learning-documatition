@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Gallery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .gallery video {
+        width: 200px;
+        height: 150px;
+        border: 2px solid #ccc;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Video Gallery</h1>
+    <div class="gallery" id="videoGallery"></div>
+    <script>
+      function openDir(video) {
+        fetch(`/open-dir?video=${encodeURIComponent(video)}`)
+      }
+
+      fetch('/videos-list')
+        .then(response => response.json())
+        .then(videos => {
+          const gallery = document.getElementById('videoGallery')
+          videos.forEach(video => {
+            const videoElement = document.createElement('video')
+            videoElement.src = `/videos/${video}`
+            videoElement.controls = false
+            videoElement.autoplay = true
+            videoElement.loop = true
+            videoElement.muted = true
+            videoElement.play()
+
+            videoElement.onclick = () => openDir(video)
+
+            videoElement.addEventListener('timeupdate', () => {
+              const maxDuration = 7 //seconds
+              if (videoElement.currentTime > maxDuration) {
+                videoElement.currentTime = 0
+              }
+            })
+            gallery.appendChild(videoElement)
+          })
+        })
+        .catch(error => console.error('Error loading videos:', error))
+    </script>
+  </body>
+</html>
