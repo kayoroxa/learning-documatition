@@ -10,22 +10,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const gallery = document.getElementById('gallery')
 
       videos.forEach(video => {
+        // Define a porcentagem de início e a duração do clipe
+        const randomStartPercent = Math.random() // Random percentage for start time
+        const clipDuration = 10 // Duration of the clip in seconds
+
         const videoElem = document.createElement('video')
         videoElem.src = `/stream?path=${encodeURIComponent(
           video
-        )}&start=0&end=10`
+        )}&start=${randomStartPercent}&clipDuration=${clipDuration}`
         videoElem.className = 'video-thumbnail'
         videoElem.autoplay = true
         videoElem.loop = true
         videoElem.muted = true
-        videoElem.controls = true
+        // videoElem.controls = true
 
         videoElem.addEventListener('click', () => {
-          const start = 0 // Define o ponto inicial do corte
-          const end = 10 // Define o ponto final do corte
+          console.log('oi')
 
           fetch(
-            `/cut?path=${encodeURIComponent(video)}&start=${start}&end=${end}`,
+            `/cut?path=${encodeURIComponent(
+              video
+            )}&start=${randomStartPercent}&clipDuration=10`,
             {
               method: 'POST',
             }
@@ -44,7 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
 
-        gallery.appendChild(videoElem)
+        const container = document.createElement('div')
+        container.appendChild(videoElem)
+
+        gallery.appendChild(container)
       })
     })
     .catch(error => {
