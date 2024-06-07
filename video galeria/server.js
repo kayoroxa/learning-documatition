@@ -23,7 +23,11 @@ app.get('/videos', (req, res) => {
       const folderPath = path.join(videosPath, folder)
       if (fs.lstatSync(folderPath).isDirectory()) {
         fs.readdirSync(folderPath).forEach(file => {
-          if (file.endsWith('.mp4')) {
+          if (
+            file.endsWith('.mp4') ||
+            file.endsWith('.mkv') ||
+            file.endsWith('.avi')
+          ) {
             allVideos.push(path.join(folderPath, file))
           }
         })
