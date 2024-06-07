@@ -1,55 +1,117 @@
-const { exec } = require('child_process')
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
+const { exec } = require('child_process')
 
 const app = express()
 const port = 3000
 
-const pathVideos = path.join(__dirname, 'videos')
+const videosPath = 'E:/series'
 
-app.use('/videos', express.static(pathVideos))
+// Middleware to serve static files
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/videos-list', (req, res) => {
-  const videosDir = pathVideos
-  const allVideos = fs.readdirSync(videosDir, (err, files) => {
+app.get('/videos', (req, res) => {
+  fs.readdir(videosPath, (err, folders) => {
     if (err) {
-      return res.status(500).send('Unable to scan directory')
+      console.error('Error reading video directory:', err)
+      return res.status(500).send('Error reading video directory')
     }
-    const videoFiles = files.filter(file => {
-      const ext = path.extname(file).toLowerCase()
-      return ext === '.mp4' || ext === '.webm' || ext === '.ogg'
+
+    let allVideos = []
+    folders.forEach(folder => {
+      const folderPath = path.join(videosPath, folder)
+      if (fs.lstatSync(folderPath).isDirectory()) {
+        fs.readdirSync(folderPath).forEach(file => {
+          if (file.endsWith('.mp4')) {
+            allVideos.push(path.join(folderPath, file))
+          }
+        })
+      }
     })
-    return videoFiles
+
+    const randomVideos = []
+    for (let i = 0; i < 10; i++) {
+      const videoPathRandom =
+        allVideos[Math.floor(Math.random() * allVideos.length)]
+      randomVideos.push(videoPathRandom)
+    }
+
+    res.json(randomVideos)
   })
-
-  const randomVideos = allVideos.sort(() => 0.5 - Math.random()).slice(0, 30)
-
-  res.json(randomVideos)
 })
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'))
+app.get('/stream', (req, res) => {
+  const videoPath = req.query.path
+  const start = req.query.start
+  const end = req.query.end
+
+  if (!videoPath || !start || !end) {
+    console.error('Missing required query parameters')
+    return res.status(400).send('Missing required query parameters')
+  }
+
+  const tempFilePath = path.join(__dirname, 'temp', `temp_${Date.now()}.mp4`)
+  const ffmpegCommand = `ffmpeg -i "${videoPath}" -ss ${start} -to ${end} -c copy "${tempFilePath}"`
+
+  console.log(`Executing command: ${ffmpegCommand}`)
+  exec(ffmpegCommand, (error, stdout, stderr) => {
+    if (error) {
+      console.error('Error streaming video:', error)
+      console.error('stderr:', stderr)
+      return res.status(500).send('Error streaming video')
+    }
+
+    console.log(`Streaming video: ${tempFilePath}`)
+    res.sendFile(tempFilePath, err => {
+      if (err) {
+        console.error('Error sending file:', err)
+      } else {
+        console.log(`Successfully sent: ${tempFilePath}`)
+      }
+      fs.unlink(tempFilePath, err => {
+        if (err) {
+          console.error('Error deleting temp file:', err)
+        } else {
+          console.log(`Deleted temp file: ${tempFilePath}`)
+        }
+      })
+    })
+  })
+})
+
+app.post('/cut', (req, res) => {
+  const videoPath = req.query.path
+  const start = req.query.start
+  const end = req.query.end
+
+  if (!videoPath || !start || !end) {
+    console.error('Missing required query parameters')
+    return res.status(400).send('Missing required query parameters')
+  }
+
+  const outputFolder = path.join(__dirname, 'output')
+  if (!fs.existsSync(outputFolder)) {
+    fs.mkdirSync(outputFolder)
+  }
+
+  const outputFilePath = path.join(outputFolder, `cut_${Date.now()}.mp4`)
+  const ffmpegCommand = `ffmpeg -i "${videoPath}" -ss ${start} -to ${end} -c copy "${outputFilePath}"`
+
+  console.log(`Executing command: ${ffmpegCommand}`)
+  exec(ffmpegCommand, (error, stdout, stderr) => {
+    if (error) {
+      console.error('Error cutting video:', error)
+      console.error('stderr:', stderr)
+      return res.status(500).send('Error cutting video')
+    }
+
+    console.log('Cutting finished')
+    exec(`explorer.exe /select,"${outputFilePath.replace(/\//g, '\\')}"`)
+    res.json({ message: 'Cutting finished', outputFilePath })
+  })
 })
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`)
-})
-
-app.get('/open-dir', (req, res) => {
-  const videoPath = path.join(__dirname, 'videos', req.query.video)
-  if (fs.existsSync(videoPath)) {
-    const command =
-      process.platform === 'win32'
-        ? `explorer /select,"${videoPath.replace(/\//g, '\\')}"`
-        : `open "${videoPath}"` // For macOS, 'open' command can be used
-    exec(command, error => {
-      if (error) {
-        return res.status(500).send('Error opening directory')
-      }
-      res.send('Directory opened')
-    })
-  } else {
-    res.status(404).send('Video not found')
-  }
+  console.log(`Server running at http://localhost:${port}`)
 })
