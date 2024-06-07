@@ -3,7 +3,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #323232;
 }
 
 #gallery {
@@ -14,4 +14,5 @@ body {
 .video-thumbnail {
   margin: 10px;
   cursor: pointer;
+  width: 400px;
 }
