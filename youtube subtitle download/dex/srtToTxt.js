@@ -27,20 +27,33 @@ const subtitlesFolder = __dirname + '/subtitles'
 
 const fs = require('fs')
 
-const files = fs.readdirSync(subtitlesFolder)
+// const files = fs.readdirSync(subtitlesFolder)
 
-const filePath = subtitlesFolder + '/' + files[0]
-const srtTxt = fs.readFileSync(filePath, 'utf8')
+// const filePath = subtitlesFolder + '/' + files[0]
 
-const srtData = removeDuplicatedLinesSrt(parser.fromSrt(srtTxt, true))
+function srtToString(filesPath) {
+  const allTexts = []
+  for (const filePath of filesPath) {
+    const srtTxt = fs.readFileSync(filePath, 'utf8')
 
-const text = srtData
-  .map(srt => srt.text)
-  .join('\n')
-  .split('\n')
-  .filter(line => line.length > 0)
-  .join(' ')
+    const srtData = removeDuplicatedLinesSrt(parser.fromSrt(srtTxt, true))
 
-console.log(text)
+    const text = srtData
+      .map(srt => srt.text)
+      .join('\n')
+      .split('\n')
+      .filter(line => line.length > 0)
+      .join(' ')
 
-fs.writeFileSync(__dirname + '/text.txt', text)
+    allTexts.push(text)
+  }
+
+  return allTexts
+}
+
+module.exports = srtToString
+//
+// console.log(text)
+
+// fs.writeFileSync(__dirname + '/text.txt', text)
+//
