@@ -1,18 +1,52 @@
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #323232;
 }
 
 #gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-card {
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.video-card:hover .video-thumbnail {
+  cursor: pointer;
 }
 
 .video-thumbnail {
-  margin: 10px;
-  cursor: pointer;
-  width: 400px;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.video-info {
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.video-info:hover {
+  color: #fff;
 }

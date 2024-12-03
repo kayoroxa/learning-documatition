@@ -6,7 +6,7 @@ const { exec } = require('child_process')
 const app = express()
 const port = 3000
 
-const videosPath = 'E:/series'
+const videosPath = 'D:/Herbert/Create videos/Assets - DB/Videos/Filmes e videos'
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')))
@@ -34,12 +34,14 @@ app.get('/videos', (req, res) => {
       }
     })
 
-    const randomVideos = []
-    for (let i = 0; i < 10; i++) {
-      const videoPathRandom =
-        allVideos[Math.floor(Math.random() * allVideos.length)]
-      randomVideos.push(videoPathRandom)
-    }
+    const shuffledVideos = allVideos.sort(() => 0.5 - Math.random())
+    const randomVideos = shuffledVideos.slice(0, 12)
+
+    // for (let i = 0; i < 10; i++) {
+    //   const videoPathRandom =
+    //     allVideos[Math.floor(Math.random() * allVideos.length)]
+    //   randomVideos.push(videoPathRandom)
+    // }
 
     res.json(randomVideos)
   })
@@ -137,6 +139,7 @@ app.post('/cut', (req, res) => {
   const videoPath = req.query.path
   const startPercent = parseFloat(req.query.start)
   const clipDuration = parseFloat(req.query.clipDuration)
+  const action = req.query.action // Novo parâmetro para diferenciar ações
 
   if (!videoPath || isNaN(startPercent) || isNaN(clipDuration)) {
     console.error('Missing required query parameters')
@@ -178,7 +181,19 @@ app.post('/cut', (req, res) => {
       }
 
       console.log('Cutting finished')
-      exec(`explorer.exe /select,"${outputFilePath.replace(/\//g, '\\')}"`)
+
+      // Verificar o parâmetro `action` para decidir se deve abrir a pasta
+      if (action === 'open') {
+        exec(
+          `explorer.exe /select,"${outputFilePath.replace(/\//g, '\\')}"`,
+          err => {
+            if (err) {
+              console.error('Error opening file explorer:', err)
+            }
+          }
+        )
+      }
+
       res.json({ message: 'Cutting finished', outputFilePath })
     })
   })
