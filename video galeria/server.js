@@ -170,7 +170,8 @@ app.post('/cut', (req, res) => {
     }
 
     const outputFilePath = path.join(outputFolder, `cut_${Date.now()}.mp4`)
-    const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c copy "${outputFilePath}"`
+
+    const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${outputFilePath}"`
 
     console.log(`Executing command: ${ffmpegCutCommand}`)
     exec(ffmpegCutCommand, (error, stdout, stderr) => {
