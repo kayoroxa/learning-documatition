@@ -28,6 +28,33 @@ document.addEventListener('DOMContentLoaded', () => {
         videoElem.loop = true
         videoElem.muted = true
 
+        // Evento para clique direito
+        videoElem.addEventListener('contextmenu', event => {
+          event.preventDefault() // Prevenir menu padrão do navegador
+
+          // Solicitar um novo vídeo aleatório
+          fetch('/videos')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok')
+              }
+              return response.json()
+            })
+            .then(newVideos => {
+              const newRandomVideo =
+                newVideos[Math.floor(Math.random() * newVideos.length)]
+              const newStartPercent = Math.random()
+
+              // Atualizar a fonte do vídeo com um novo clipe
+              videoElem.src = `/stream?path=${encodeURIComponent(
+                newRandomVideo
+              )}&start=${newStartPercent}&clipDuration=${clipDuration}`
+            })
+            .catch(error => {
+              console.error('Erro ao buscar novo vídeo:', error)
+            })
+        })
+
         // Evento de clique para manipular o corte
         videoElem.addEventListener('mousedown', event => {
           const isMiddleClick = event.button === 1 // Botão do meio
