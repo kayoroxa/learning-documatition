@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomStartPercent = Math.random() // Random percentage for start time
         const clipDuration = 10 // Duration of the clip in seconds
 
+        // Cria o contêiner do vídeo com a animação inicial
+        const videoCard = document.createElement('div')
+        videoCard.className =
+          'bg-gray-700 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out fade-blink'
+
         // Cria o elemento do vídeo
         const videoElem = document.createElement('video')
         videoElem.src = `/stream?path=${encodeURIComponent(
@@ -28,11 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
         videoElem.loop = true
         videoElem.muted = true
 
+        // Configura a fonte do vídeo
+        videoElem.src = `/stream?path=${encodeURIComponent(
+          video
+        )}&start=${randomStartPercent}&clipDuration=${clipDuration}`
+
+        // Evento para remover o efeito de fade após carregar o vídeo
+        videoElem.addEventListener('loadeddata', () => {
+          videoCard.classList.remove('fade-blink')
+        })
+
         // Evento para clique direito
         videoElem.addEventListener('contextmenu', event => {
-          event.preventDefault() // Prevenir menu padrão do navegador
+          event.preventDefault()
 
-          // Solicitar um novo vídeo aleatório
           fetch('/videos')
             .then(response => {
               if (!response.ok) {
@@ -45,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 newVideos[Math.floor(Math.random() * newVideos.length)]
               const newStartPercent = Math.random()
 
-              // Atualizar a fonte do vídeo com um novo clipe
+              videoCard.classList.add('fade-blink') // Adiciona efeito de fade enquanto carrega
+
               videoElem.src = `/stream?path=${encodeURIComponent(
                 newRandomVideo
               )}&start=${newStartPercent}&clipDuration=${clipDuration}`
@@ -104,11 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
               })
           }
         })
-
-        // Cria o contêiner do vídeo
-        const videoCard = document.createElement('div')
-        videoCard.className =
-          'bg-gray-700 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out'
 
         videoCard.appendChild(videoElem)
         gallery.appendChild(videoCard)
