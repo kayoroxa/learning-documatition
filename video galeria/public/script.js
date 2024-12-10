@@ -44,19 +44,34 @@ document.addEventListener('DOMContentLoaded', () => {
         })
 
         // Função para criar notificações
-        function showNotification(message) {
+        function showNotification(message, type = 'info') {
           const notificationsContainer =
             document.getElementById('notifications')
           const notification = document.createElement('div')
-          notification.className = 'notification'
-          notification.textContent = message
+          notification.className = `notification ${type}`
 
+          const emoji = document.createElement('span')
+          emoji.className = 'emoji'
+
+          if (type === 'success') {
+            emoji.textContent = '🟢'
+          } else if (type === 'error') {
+            emoji.textContent = '🔴'
+          } else {
+            emoji.textContent = 'ℹ️'
+          }
+
+          const text = document.createElement('span')
+          text.textContent = message
+
+          notification.appendChild(emoji)
+          notification.appendChild(text)
           notificationsContainer.appendChild(notification)
 
           // Remove a notificação após o tempo de animação
           setTimeout(() => {
             notificationsContainer.removeChild(notification)
-          }, 4000)
+          }, 5000)
         }
 
         // Evento para clique direito
@@ -92,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const isLeftClick = event.button === 0 // Botão esquerdo
 
           if (isLeftClick) {
+            showNotification('Iniciando corte do vídeo...', 'info')
             fetch(
               `/cut?path=${encodeURIComponent(
                 video
@@ -108,14 +124,23 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               .then(data => {
                 console.log('Arquivo salvo:', data.message)
-                showNotification('Vídeo salvo com sucesso!')
-                showNotification('Criando proxy...')
+                showNotification(
+                  'Corte do vídeo concluído com sucesso!',
+                  'success'
+                )
+                showNotification('Iniciando criação do proxy...', 'info')
+
+                // Simulando notificação de proxy
+                setTimeout(() => {
+                  showNotification('Proxy criado com sucesso!', 'success')
+                }, 3000)
               })
               .catch(error => {
                 console.error('Erro ao salvar vídeo:', error)
-                showNotification('Erro ao salvar vídeo.')
+                showNotification('Erro ao salvar vídeo.', 'error')
               })
           } else if (isMiddleClick) {
+            showNotification('Iniciando corte e abertura do vídeo...', 'info')
             fetch(
               `/cut?path=${encodeURIComponent(
                 video
@@ -132,12 +157,20 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               .then(data => {
                 console.log('Arquivo salvo:', data.message)
-                showNotification('Vídeo salvo com sucesso!')
-                showNotification('Criando proxy...')
+                showNotification(
+                  'Corte do vídeo concluído com sucesso!',
+                  'success'
+                )
+                showNotification('Iniciando criação do proxy...', 'info')
+
+                // Simulando notificação de proxy
+                setTimeout(() => {
+                  showNotification('Proxy criado com sucesso!', 'success')
+                }, 3000)
               })
               .catch(error => {
                 console.error('Erro ao salvar e abrir vídeo:', error)
-                showNotification('Erro ao salvar vídeo.')
+                showNotification('Erro ao salvar e abrir vídeo.', 'error')
               })
           }
         })
