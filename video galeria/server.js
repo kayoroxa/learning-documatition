@@ -180,7 +180,8 @@ app.post('/cut', (req, res) => {
         path.basename(outputFilePath)
       )
       if (!fs.existsSync(proxyFilePath)) {
-        const ffmpegProxyCommand = `ffmpeg -i "${outputFilePath}" -vf scale=640:-1 -c:v libx264 -c:a aac "${proxyFilePath}"`
+        const ffmpegProxyCommand = `ffmpeg -i "${outputFilePath}" -vf "scale=640:trunc(ih/2)*2" -c:v libx264 -c:a aac -b:a 128k -ac 2 "${proxyFilePath}"`
+
         exec(ffmpegProxyCommand, proxyError => {
           if (proxyError) {
             console.error('Error creating proxy:', proxyError)
