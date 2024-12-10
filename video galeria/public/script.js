@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
           notification.appendChild(text)
           notificationsContainer.appendChild(notification)
 
-          // Remove a notificação após o tempo de animação
           setTimeout(() => {
             notificationsContainer.removeChild(notification)
           }, 5000)
@@ -103,74 +102,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Evento de clique para manipular o corte
         videoElem.addEventListener('mousedown', event => {
-          const isMiddleClick = event.button === 1 // Botão do meio
-          const isLeftClick = event.button === 0 // Botão esquerdo
+          const isMiddleClick = event.button === 1
+          const isLeftClick = event.button === 0
 
-          if (isLeftClick) {
+          if (isLeftClick || isMiddleClick) {
             showNotification('Iniciando corte do vídeo...', 'info')
+
+            const action = isLeftClick ? 'save' : 'open'
             fetch(
               `/cut?path=${encodeURIComponent(
                 video
-              )}&start=${randomStartPercent}&clipDuration=10&action=save`,
+              )}&start=${randomStartPercent}&clipDuration=10&action=${action}`,
               {
                 method: 'POST',
               }
             )
               .then(response => {
                 if (!response.ok) {
-                  throw new Error('Network response was not ok')
+                  return response.json().then(data => {
+                    throw new Error(data.message || 'Erro desconhecido')
+                  })
                 }
                 return response.json()
               })
               .then(data => {
-                console.log('Arquivo salvo:', data.message)
-                showNotification(
-                  'Corte do vídeo concluído com sucesso!',
-                  'success'
-                )
-                showNotification('Iniciando criação do proxy...', 'info')
-
-                // Simulando notificação de proxy
-                setTimeout(() => {
-                  showNotification('Proxy criado com sucesso!', 'success')
-                }, 3000)
+                showNotification(data.message, 'success')
               })
               .catch(error => {
-                console.error('Erro ao salvar vídeo:', error)
-                showNotification('Erro ao salvar vídeo.', 'error')
-              })
-          } else if (isMiddleClick) {
-            showNotification('Iniciando corte e abertura do vídeo...', 'info')
-            fetch(
-              `/cut?path=${encodeURIComponent(
-                video
-              )}&start=${randomStartPercent}&clipDuration=10&action=open`,
-              {
-                method: 'POST',
-              }
-            )
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok')
-                }
-                return response.json()
-              })
-              .then(data => {
-                console.log('Arquivo salvo:', data.message)
-                showNotification(
-                  'Corte do vídeo concluído com sucesso!',
-                  'success'
-                )
-                showNotification('Iniciando criação do proxy...', 'info')
-
-                // Simulando notificação de proxy
-                setTimeout(() => {
-                  showNotification('Proxy criado com sucesso!', 'success')
-                }, 3000)
-              })
-              .catch(error => {
-                console.error('Erro ao salvar e abrir vídeo:', error)
-                showNotification('Erro ao salvar e abrir vídeo.', 'error')
+                console.error('Erro no processo:', error.message)
+                showNotification(error.message, 'error')
               })
           }
         })

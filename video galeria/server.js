@@ -155,25 +155,21 @@ app.post('/cut', (req, res) => {
 
     const durationInSeconds = parseFloat(stdout)
     const startTime = startPercent * durationInSeconds
-    const endTime = Math.min(startTime + clipDuration, durationInSeconds)
-
     const outputFolder = path.join(__dirname, 'output')
     if (!fs.existsSync(outputFolder)) {
       fs.mkdirSync(outputFolder)
     }
 
     const outputFilePath = path.join(outputFolder, `cut_${Date.now()}.mp4`)
-
     const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${outputFilePath}"`
-    exec(ffmpegCutCommand, error => {
-      if (error) {
-        console.error('Error cutting video:', error)
-        return res.status(500).send('Error cutting video')
+
+    exec(ffmpegCutCommand, cutError => {
+      if (cutError) {
+        console.error('Error cutting video:', cutError)
+        return res.status(500).send({ message: 'Error cutting video' })
       }
 
       console.log('Cutting finished')
-
-      // Criar proxy automaticamente
       const proxyFolder = path.join(outputFolder, 'proxy')
       if (!fs.existsSync(proxyFolder)) {
         fs.mkdirSync(proxyFolder)
@@ -188,26 +184,24 @@ app.post('/cut', (req, res) => {
         exec(ffmpegProxyCommand, proxyError => {
           if (proxyError) {
             console.error('Error creating proxy:', proxyError)
+            return res.status(500).send({ message: 'Error creating proxy' })
           } else {
             console.log('Proxy created:', proxyFilePath)
+            return res.status(200).send({
+              message: 'Cut and proxy creation successful',
+              outputFilePath,
+              proxyFilePath,
+            })
           }
         })
       } else {
         console.log('Proxy already exists:', proxyFilePath)
+        return res.status(200).send({
+          message: 'Cutting successful, proxy already exists',
+          outputFilePath,
+          proxyFilePath,
+        })
       }
-
-      if (action === 'open') {
-        exec(
-          `explorer.exe /select,"${outputFilePath.replace(/\//g, '\\')}"`,
-          err => {
-            if (err) {
-              console.error('Error opening file explorer:', err)
-            }
-          }
-        )
-      }
-
-      res.json({ message: 'Cutting finished', outputFilePath })
     })
   })
 })
