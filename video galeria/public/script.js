@@ -43,6 +43,22 @@ document.addEventListener('DOMContentLoaded', () => {
           videoCard.classList.remove('fade-blink')
         })
 
+        // Função para criar notificações
+        function showNotification(message) {
+          const notificationsContainer =
+            document.getElementById('notifications')
+          const notification = document.createElement('div')
+          notification.className = 'notification'
+          notification.textContent = message
+
+          notificationsContainer.appendChild(notification)
+
+          // Remove a notificação após o tempo de animação
+          setTimeout(() => {
+            notificationsContainer.removeChild(notification)
+          }, 4000)
+        }
+
         // Evento para clique direito
         videoElem.addEventListener('contextmenu', event => {
           event.preventDefault()
@@ -92,9 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               .then(data => {
                 console.log('Arquivo salvo:', data.message)
+                showNotification('Vídeo salvo com sucesso!')
+                showNotification('Criando proxy...')
               })
               .catch(error => {
                 console.error('Erro ao salvar vídeo:', error)
+                showNotification('Erro ao salvar vídeo.')
               })
           } else if (isMiddleClick) {
             fetch(
@@ -113,9 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               .then(data => {
                 console.log('Arquivo salvo:', data.message)
+                showNotification('Vídeo salvo com sucesso!')
+                showNotification('Criando proxy...')
               })
               .catch(error => {
                 console.error('Erro ao salvar e abrir vídeo:', error)
+                showNotification('Erro ao salvar vídeo.')
               })
           }
         })

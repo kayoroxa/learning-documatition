@@ -50,3 +50,33 @@ body {
 .video-info:hover {
   color: #fff;
 }
+
+.notification {
+  background-color: #323232;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeInOut 4s forwards;
+  max-width: 300px;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

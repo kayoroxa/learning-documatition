@@ -139,28 +139,21 @@ app.post('/cut', (req, res) => {
   const videoPath = req.query.path
   const startPercent = parseFloat(req.query.start)
   const clipDuration = parseFloat(req.query.clipDuration)
-  const action = req.query.action // Novo parâmetro para diferenciar ações
+  const action = req.query.action
 
   if (!videoPath || isNaN(startPercent) || isNaN(clipDuration)) {
     console.error('Missing required query parameters')
     return res.status(400).send('Missing required query parameters')
   }
 
-  // Get the duration of the video using ffprobe
   const ffprobeCommand = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`
-  exec(ffprobeCommand, (error, stdout, stderr) => {
+  exec(ffprobeCommand, (error, stdout) => {
     if (error) {
       console.error('Error getting video duration:', error)
-      console.error('stderr:', stderr)
       return res.status(500).send('Error getting video duration')
     }
 
     const durationInSeconds = parseFloat(stdout)
-    if (isNaN(durationInSeconds)) {
-      console.error('Could not parse video duration')
-      return res.status(500).send('Could not parse video duration')
-    }
-
     const startTime = startPercent * durationInSeconds
     const endTime = Math.min(startTime + clipDuration, durationInSeconds)
 
@@ -172,18 +165,37 @@ app.post('/cut', (req, res) => {
     const outputFilePath = path.join(outputFolder, `cut_${Date.now()}.mp4`)
 
     const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${outputFilePath}"`
-
-    console.log(`Executing command: ${ffmpegCutCommand}`)
-    exec(ffmpegCutCommand, (error, stdout, stderr) => {
+    exec(ffmpegCutCommand, error => {
       if (error) {
         console.error('Error cutting video:', error)
-        console.error('stderr:', stderr)
         return res.status(500).send('Error cutting video')
       }
 
       console.log('Cutting finished')
 
-      // Verificar o parâmetro `action` para decidir se deve abrir a pasta
+      // Criar proxy automaticamente
+      const proxyFolder = path.join(outputFolder, 'proxy')
+      if (!fs.existsSync(proxyFolder)) {
+        fs.mkdirSync(proxyFolder)
+      }
+
+      const proxyFilePath = path.join(
+        proxyFolder,
+        path.basename(outputFilePath)
+      )
+      if (!fs.existsSync(proxyFilePath)) {
+        const ffmpegProxyCommand = `ffmpeg -i "${outputFilePath}" -vf scale=640:-1 -c:v libx264 -c:a aac "${proxyFilePath}"`
+        exec(ffmpegProxyCommand, proxyError => {
+          if (proxyError) {
+            console.error('Error creating proxy:', proxyError)
+          } else {
+            console.log('Proxy created:', proxyFilePath)
+          }
+        })
+      } else {
+        console.log('Proxy already exists:', proxyFilePath)
+      }
+
       if (action === 'open') {
         exec(
           `explorer.exe /select,"${outputFilePath.replace(/\//g, '\\')}"`,
