@@ -127,6 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
               })
               .then(data => {
                 showNotification(data.message, 'success')
+                console.log('Arquivo gerado:', data.outputFilePath)
+                console.log('Proxy gerado:', data.proxyFilePath)
               })
               .catch(error => {
                 console.error('Erro no processo:', error.message)

@@ -2,6 +2,7 @@ const express = require('express')
 const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
+const crypto = require('crypto')
 
 const app = express()
 const port = 3000
@@ -146,6 +147,14 @@ app.post('/cut', (req, res) => {
     return res.status(400).send('Missing required query parameters')
   }
 
+  const videoName = path
+    .basename(videoPath, path.extname(videoPath))
+    .slice(0, 8) // Pega os primeiros 8 caracteres do título
+  const outputFolder = path.join(__dirname, 'output')
+  if (!fs.existsSync(outputFolder)) {
+    fs.mkdirSync(outputFolder)
+  }
+
   const ffprobeCommand = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`
   exec(ffprobeCommand, (error, stdout) => {
     if (error) {
@@ -154,15 +163,29 @@ app.post('/cut', (req, res) => {
     }
 
     const durationInSeconds = parseFloat(stdout)
-    const startTime = startPercent * durationInSeconds
-    const outputFolder = path.join(__dirname, 'output')
-    if (!fs.existsSync(outputFolder)) {
-      fs.mkdirSync(outputFolder)
+    const startTime = Math.floor(startPercent * durationInSeconds) // Converte para segundos inteiros
+    const endTime = startTime + Math.floor(clipDuration)
+
+    const uniqueName = `${videoName}_${startTime}-${endTime}`
+    const outputFilePath = path.join(outputFolder, `${uniqueName}.mp4`)
+    const proxyFolder = path.join(outputFolder, 'proxy')
+    if (!fs.existsSync(proxyFolder)) {
+      fs.mkdirSync(proxyFolder)
     }
 
-    const outputFilePath = path.join(outputFolder, `cut_${Date.now()}.mp4`)
-    const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${outputFilePath}"`
+    const proxyFilePath = path.join(proxyFolder, `${uniqueName}.mp4`)
 
+    // Verifica se o arquivo já existe
+    if (fs.existsSync(outputFilePath) && fs.existsSync(proxyFilePath)) {
+      console.log('Cut and proxy already exist.')
+      return res.status(200).send({
+        message: 'Cut and proxy already exist',
+        outputFilePath,
+        proxyFilePath,
+      })
+    }
+
+    const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${outputFilePath}"`
     exec(ffmpegCutCommand, cutError => {
       if (cutError) {
         console.error('Error cutting video:', cutError)
@@ -170,18 +193,9 @@ app.post('/cut', (req, res) => {
       }
 
       console.log('Cutting finished')
-      const proxyFolder = path.join(outputFolder, 'proxy')
-      if (!fs.existsSync(proxyFolder)) {
-        fs.mkdirSync(proxyFolder)
-      }
 
-      const proxyFilePath = path.join(
-        proxyFolder,
-        path.basename(outputFilePath)
-      )
       if (!fs.existsSync(proxyFilePath)) {
         const ffmpegProxyCommand = `ffmpeg -i "${outputFilePath}" -vf "scale=640:trunc(ih/2)*2" -c:v libx264 -c:a aac -b:a 128k -ac 2 "${proxyFilePath}"`
-
         exec(ffmpegProxyCommand, proxyError => {
           if (proxyError) {
             console.error('Error creating proxy:', proxyError)
