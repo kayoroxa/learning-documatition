@@ -6,46 +6,44 @@ const crypto = require('crypto')
 
 const app = express()
 const port = 3000
-
-const videosPath = 'D:/Herbert/Create videos/Assets - DB/Videos/Filmes e videos'
+const videosPath = 'D:/Herbert/VIDEO CRAFT/Assets - DB/Videos/Filmes & youtube'
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/videos', (req, res) => {
-  fs.readdir(videosPath, (err, folders) => {
-    if (err) {
-      console.error('Error reading video directory:', err)
-      return res.status(500).send('Error reading video directory')
+// Função recursiva para buscar vídeos em todas as subpastas
+function getAllVideos(dirPath) {
+  let results = []
+  const list = fs.readdirSync(dirPath)
+
+  list.forEach(file => {
+    const fullPath = path.join(dirPath, file)
+    const stat = fs.statSync(fullPath)
+
+    if (stat && stat.isDirectory()) {
+      results = results.concat(getAllVideos(fullPath)) // chamada recursiva
+    } else if (
+      fullPath.endsWith('.mp4') ||
+      fullPath.endsWith('.mkv') ||
+      fullPath.endsWith('.avi')
+    ) {
+      results.push(fullPath)
     }
+  })
 
-    let allVideos = []
-    folders.forEach(folder => {
-      const folderPath = path.join(videosPath, folder)
-      if (fs.lstatSync(folderPath).isDirectory()) {
-        fs.readdirSync(folderPath).forEach(file => {
-          if (
-            file.endsWith('.mp4') ||
-            file.endsWith('.mkv') ||
-            file.endsWith('.avi')
-          ) {
-            allVideos.push(path.join(folderPath, file))
-          }
-        })
-      }
-    })
+  return results
+}
 
+app.get('/videos', (req, res) => {
+  try {
+    const allVideos = getAllVideos(videosPath)
     const shuffledVideos = allVideos.sort(() => 0.5 - Math.random())
     const randomVideos = shuffledVideos.slice(0, 12)
-
-    // for (let i = 0; i < 10; i++) {
-    //   const videoPathRandom =
-    //     allVideos[Math.floor(Math.random() * allVideos.length)]
-    //   randomVideos.push(videoPathRandom)
-    // }
-
     res.json(randomVideos)
-  })
+  } catch (err) {
+    console.error('Error reading video directory:', err)
+    res.status(500).send('Error reading video directory')
+  }
 })
 
 app.get('/video-duration', (req, res) => {
