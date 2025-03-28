@@ -35,8 +35,15 @@ function getAllVideos(dirPath) {
 }
 
 app.get('/videos', (req, res) => {
+  const folderParam = req.query.folder
+  let targetPath = videosPath
+
+  if (folderParam && folderParam !== 'ALL') {
+    targetPath = path.join(videosPath, folderParam)
+  }
+
   try {
-    const allVideos = getAllVideos(videosPath)
+    const allVideos = getAllVideos(targetPath)
     const shuffledVideos = allVideos.sort(() => 0.5 - Math.random())
     const randomVideos = shuffledVideos.slice(0, 12)
     res.json(randomVideos)
@@ -133,6 +140,20 @@ app.get('/stream', (req, res) => {
     })
   })
 })
+
+app.get('/folders', (req, res) => {
+  try {
+    const folders = fs.readdirSync(videosPath).filter(folder => {
+      const folderPath = path.join(videosPath, folder)
+      return fs.statSync(folderPath).isDirectory()
+    })
+    res.json(['ALL', ...folders])
+  } catch (err) {
+    console.error('Erro ao listar pastas:', err)
+    res.status(500).send('Erro ao listar pastas')
+  }
+})
+
 
 app.post('/cut', (req, res) => {
   const videoPath = req.query.path
