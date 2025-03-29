@@ -29,6 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000)
   }
 
+  function setActiveFolderButton(folderName) {
+    const allButtons = document.querySelectorAll('#folderButtons button')
+    allButtons.forEach(btn => {
+      if (btn.textContent === folderName) {
+        btn.classList.add('active-folder')
+      } else {
+        btn.classList.remove('active-folder')
+      }
+    })
+  }
+  
+
   function loadWithRetryOrReplace(videoElem, videoUrl, folder, clipDuration = 10, attemptsLeft = 3, delay = 1000) {
     videoElem.src = videoUrl
     videoElem.load()
@@ -204,22 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
             window.history.pushState({ folder }, '', newUrl)
           
             // Atualiza o estado visual dos botões
-            document.querySelectorAll('#folderButtons button').forEach(b => {
-              b.classList.remove('active-folder')
-            })
-            btn.classList.add('active-folder')
+            setActiveFolderButton(folder)
+
           }
           
           
         container.appendChild(btn)
       })
+      
       // Marca o botão ativo com base na URL (após os botões serem criados)
-const params = new URLSearchParams(window.location.search)
-const activeFolder = params.get('folder') || 'ALL'
-const activeBtn = Array.from(container.querySelectorAll('button'))
-  .find(b => b.textContent === activeFolder)
-
-if (activeBtn) activeBtn.classList.add('active-folder')
+      const params = new URLSearchParams(window.location.search)
+      const activeFolder = params.get('folder') || 'ALL'
+      setActiveFolderButton(activeFolder)
+      
 
     })
 
@@ -240,6 +249,8 @@ setTimeout(() => {
 window.onpopstate = (event) => {
   const folder = (event.state && event.state.folder) || 'ALL'
   loadVideos(folder)
+  setActiveFolderButton(folder) // <- garante destaque visual
 }
+
 
 })
