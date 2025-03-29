@@ -85,57 +85,75 @@ app.get('/video-duration', (req, res) => {
 })
 
 app.get('/stream', (req, res) => {
-  const videoPath = req.query.path
-  const startPercent = parseFloat(req.query.start)
-  const clipDuration = parseFloat(req.query.clipDuration)
+  const videoPath = req.query.path;
+  const startPercent = parseFloat(req.query.start);
+  const clipDuration = parseFloat(req.query.clipDuration);
 
   if (!videoPath || isNaN(startPercent) || isNaN(clipDuration)) {
-    console.error('Missing required query parameters')
-    return res.status(400).send('Missing required query parameters')
+    console.error('Missing required query parameters');
+    return res.status(400).send('Missing required query parameters');
   }
 
-  const ffprobeCommand = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`
+  const ffprobeDurationCmd = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`;
+  const ffprobeCodecCmd = `ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`;
 
-  exec(ffprobeCommand, (error, stdout) => {
-    if (error) {
-      console.error('Error getting video duration:', error)
-      return res.status(500).send('Error getting video duration')
+  exec(ffprobeDurationCmd, (durationErr, durationStdout) => {
+    if (durationErr) {
+      console.error('Error getting video duration:', durationErr);
+      return res.status(500).send('Error getting video duration');
     }
 
-    const durationInSeconds = parseFloat(stdout)
+    const durationInSeconds = parseFloat(durationStdout);
     if (isNaN(durationInSeconds)) {
-      console.error('Could not parse video duration')
-      return res.status(500).send('Invalid duration info')
+      console.error('Could not parse video duration');
+      return res.status(500).send('Invalid duration info');
     }
 
-    const startTime = startPercent * durationInSeconds
-    const tempFilePath = path.join(__dirname, 'temp', `temp_${Date.now()}.mp4`)
+    const startTime = startPercent * durationInSeconds;
+    const tempFilePath = path.join(__dirname, 'temp', `temp_${Date.now()}.mp4`);
 
-    const ffmpegCommandCopy = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -movflags +faststart -c copy "${tempFilePath}"`
-    const ffmpegCommandReencode = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -movflags +faststart -c:v libx264 -preset ultrafast -c:a aac "${tempFilePath}"`
-
-    console.log(`🧪 Tentando gerar clipe com copy:`)
-    console.log(ffmpegCommandCopy)
-
-    exec(ffmpegCommandCopy, (copyErr, copyStdout, copyStderr) => {
-      if (copyErr) {
-        console.warn('⚠️ copy falhou, tentando reencode...')
-        console.log(ffmpegCommandReencode)
-
-        exec(ffmpegCommandReencode, (reErr, reStdout, reStderr) => {
-          if (reErr) {
-            console.error('❌ Reencode falhou também:', reErr)
-            return res.status(500).send('Erro ao gerar vídeo')
-          }
-
-          streamVideoToClient(tempFilePath, req, res)
-        })
-      } else {
-        streamVideoToClient(tempFilePath, req, res)
+    // Agora detecta o codec
+    exec(ffprobeCodecCmd, (codecErr, codecStdout) => {
+      if (codecErr) {
+        console.warn('⚠️ Erro ao detectar codec, fazendo reencode por segurança.');
+        return encodeVideo(); // fallback direto pra segurança
       }
-    })
-  })
-})
+
+      const codec = codecStdout.trim().toLowerCase();
+      console.log(`🎥 Codec detectado: ${codec}`);
+
+      if (codec === 'h264') {
+        // tenta o caminho rápido
+        const ffmpegCopyCmd = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -movflags +faststart -c copy "${tempFilePath}"`;
+        console.log('⚡ Tentando copy...');
+        exec(ffmpegCopyCmd, (copyErr) => {
+          if (copyErr) {
+            console.warn('❌ Copy falhou, tentando reencode...');
+            encodeVideo(); // fallback
+          } else {
+            streamVideoToClient(tempFilePath, req, res);
+          }
+        });
+      } else {
+        // codec não é h264, reencode obrigatório
+        encodeVideo();
+      }
+    });
+
+    function encodeVideo() {
+      const ffmpegReencodeCmd = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -movflags +faststart -c:v libx264 -preset ultrafast -c:a aac "${tempFilePath}"`;
+      console.log('🔁 Reencode forçado com libx264...');
+      exec(ffmpegReencodeCmd, (reErr) => {
+        if (reErr) {
+          console.error('❌ Reencode falhou:', reErr);
+          return res.status(500).send('Erro ao gerar vídeo (reencode)');
+        }
+        streamVideoToClient(tempFilePath, req, res);
+      });
+    }
+  });
+});
+
 
 // 🔁 Aguarda o arquivo estar legível
 function waitForFileReady(filePath, maxAttempts = 10, interval = 200) {
