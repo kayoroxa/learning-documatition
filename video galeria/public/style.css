@@ -50,3 +50,7 @@ body {
 .video-info:hover {
   color: #fff;
 }
+
+.active-folder {
+  background-color: #1e40af !important; /* Azul mais escuro */
+}

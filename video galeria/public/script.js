@@ -196,11 +196,50 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.textContent = folder
         btn.className =
           'bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded'
-        btn.onclick = () => loadVideos(folder)
+          btn.onclick = () => {
+            loadVideos(folder)
+          
+            // Atualiza URL
+            const newUrl = `${window.location.pathname}?folder=${encodeURIComponent(folder)}`
+            window.history.pushState({ folder }, '', newUrl)
+          
+            // Atualiza o estado visual dos botões
+            document.querySelectorAll('#folderButtons button').forEach(b => {
+              b.classList.remove('active-folder')
+            })
+            btn.classList.add('active-folder')
+          }
+          
+          
         container.appendChild(btn)
       })
+      // Marca o botão ativo com base na URL (após os botões serem criados)
+const params = new URLSearchParams(window.location.search)
+const activeFolder = params.get('folder') || 'ALL'
+const activeBtn = Array.from(container.querySelectorAll('button'))
+  .find(b => b.textContent === activeFolder)
+
+if (activeBtn) activeBtn.classList.add('active-folder')
+
     })
 
-  // Carrega os vídeos iniciais (ALL)
-  loadVideos()
+  // Detecta pasta da URL ou carrega ALL
+const params = new URLSearchParams(window.location.search)
+const initialFolder = params.get('folder') || 'ALL'
+loadVideos(initialFolder)
+
+// Marca o botão como ativo visualmente
+setTimeout(() => {
+  const activeBtn = Array.from(document.querySelectorAll('#folderButtons button'))
+    .find(b => b.textContent === initialFolder)
+  if (activeBtn) activeBtn.classList.add('active-folder')
+}, 100) // pequeno delay pra garantir que os botões já foram renderizados
+
+
+// Suporte ao botão "voltar" do navegador
+window.onpopstate = (event) => {
+  const folder = (event.state && event.state.folder) || 'ALL'
+  loadVideos(folder)
+}
+
 })
