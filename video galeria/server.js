@@ -25,7 +25,9 @@ function getAllVideos(dirPath) {
     } else if (
       fullPath.endsWith('.mp4') ||
       fullPath.endsWith('.mkv') ||
-      fullPath.endsWith('.avi')
+      fullPath.endsWith('.avi') ||
+      fullPath.endsWith('.mov') ||
+      fullPath.endsWith('.wmv')
     ) {
       results.push(fullPath)
     }
