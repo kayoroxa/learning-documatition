@@ -29,6 +29,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000)
   }
 
+  function loadWithRetryOrReplace(videoElem, videoUrl, folder, clipDuration = 10, attemptsLeft = 3, delay = 1000) {
+    videoElem.src = videoUrl
+    videoElem.load()
+  
+    const onError = () => {
+      if (attemptsLeft > 0) {
+        console.warn(`🔁 Tentando recarregar vídeo... tentativas restantes: ${attemptsLeft - 1}`)
+        setTimeout(() => {
+          loadWithRetryOrReplace(videoElem, videoUrl, folder, clipDuration, attemptsLeft - 1, delay)
+        }, delay)
+      } else {
+        console.warn('❌ Falha ao carregar vídeo após todas as tentativas. Buscando novo vídeo...')
+  
+        fetch(`/videos?folder=${encodeURIComponent(folder)}`)
+          .then(response => response.json())
+          .then(newVideos => {
+            const newRandomVideo = newVideos[Math.floor(Math.random() * newVideos.length)]
+            const newStartPercent = Math.random()
+  
+            const newVideoUrl = `/stream?path=${encodeURIComponent(newRandomVideo)}&start=${newStartPercent}&clipDuration=${clipDuration}&t=${Date.now()}`
+            loadWithRetryOrReplace(videoElem, newVideoUrl, folder, clipDuration)
+          })
+          .catch(err => {
+            console.error('⚠️ Erro ao buscar vídeo de fallback:', err)
+          })
+      }
+    }
+  
+    videoElem.onerror = onError
+  }
+  
+
   function loadVideos(folder = 'ALL') {
     fetch(`/videos?folder=${encodeURIComponent(folder)}`)
       .then(response => {
@@ -42,61 +74,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const displayedVideos = videos.slice(0, 12)
 
-        displayedVideos.forEach(video => {
+        displayedVideos.forEach((video, index) => {
           const randomStartPercent = Math.random()
           const clipDuration = 10
-
+        
           const videoCard = document.createElement('div')
           videoCard.className =
             'bg-gray-700 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out fade-blink'
-
+        
           const videoElem = document.createElement('video')
-          videoElem.src = `/stream?path=${encodeURIComponent(
-            video
-          )}&start=${randomStartPercent}&clipDuration=${clipDuration}`
-          videoElem.className =
-            'w-full h-60 rounded-lg object-cover cursor-pointer'
+          let isLoading = true
+        
+          videoElem.className = 'w-full h-60 rounded-lg object-cover cursor-pointer'
+          videoElem.muted = true
           videoElem.autoplay = true
           videoElem.loop = true
-          videoElem.muted = true
-
-          videoElem.addEventListener('loadeddata', () => {
-            videoCard.classList.remove('fade-blink')
+          videoElem.controls = false
+          videoElem.setAttribute('playsinline', '')
+          videoElem.setAttribute('preload', 'none')
+          videoElem.setAttribute('type', 'video/mp4')
+        
+          
+        
+          // Log de erro (debug)
+          videoElem.addEventListener('error', e => {
+            const err = e.target?.error
+            console.error('⚠️ Erro de carregamento do vídeo:', err?.code, err)
           })
-
+        
+          // Quando carregar, remove efeitos visuais
+          videoElem.addEventListener('loadeddata', () => {
+            isLoading = false
+            videoCard.classList.remove('fade-blink')
+            videoElem.removeAttribute('poster')
+            videoElem.currentTime = 0.01 // Hack pra evitar bug em alguns browsers
+          })
+        
+          // Clique direito: trocar vídeo
           videoElem.addEventListener('contextmenu', event => {
             event.preventDefault()
-
+            if (isLoading) return
+        
+            isLoading = true
+            videoCard.classList.add('fade-blink')
+        
             fetch(`/videos?folder=${encodeURIComponent(folder)}`)
               .then(response => response.json())
               .then(newVideos => {
-                const newRandomVideo =
-                  newVideos[Math.floor(Math.random() * newVideos.length)]
+                const newRandomVideo = newVideos[Math.floor(Math.random() * newVideos.length)]
                 const newStartPercent = Math.random()
-
-                videoCard.classList.add('fade-blink')
-
-                videoElem.src = `/stream?path=${encodeURIComponent(
-                  newRandomVideo
-                )}&start=${newStartPercent}&clipDuration=${clipDuration}`
+        
+                const newUrl = `/stream?path=${encodeURIComponent(newRandomVideo)}&start=${newStartPercent}&clipDuration=${clipDuration}&t=${Date.now()}`
+                loadWithRetryOrReplace(videoElem, newUrl, folder, clipDuration)
               })
               .catch(error => {
                 console.error('Erro ao buscar novo vídeo:', error)
               })
           })
-
+        
+          // Clique: cortar
           videoElem.addEventListener('mousedown', event => {
             const isMiddleClick = event.button === 1
             const isLeftClick = event.button === 0
-
+        
             if (isLeftClick || isMiddleClick) {
               showNotification('Iniciando corte do vídeo...', 'info')
-
+        
               const action = isLeftClick ? 'save' : 'open'
               fetch(
-                `/cut?path=${encodeURIComponent(
-                  video
-                )}&start=${randomStartPercent}&clipDuration=10&action=${action}`,
+                `/cut?path=${encodeURIComponent(video)}&start=${randomStartPercent}&clipDuration=10&action=${action}`,
                 {
                   method: 'POST',
                 }
@@ -120,10 +166,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             }
           })
-
+        
           videoCard.appendChild(videoElem)
           gallery.appendChild(videoCard)
+        
+          // Delay progressivo para evitar carregamento simultâneo pesado
+          const delay = index * 250 // 250ms entre cada
+          setTimeout(() => {
+            const videoUrl = `/stream?path=${encodeURIComponent(video)}&start=${randomStartPercent}&clipDuration=${clipDuration}&t=${Date.now()}`
+            loadWithRetryOrReplace(videoElem, videoUrl, folder, clipDuration)
+          }, delay)
         })
+        
+        
+        
       })
       .catch(error => {
         console.error('Error fetching videos:', error)

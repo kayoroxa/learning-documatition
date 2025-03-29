@@ -94,9 +94,9 @@ app.get('/stream', (req, res) => {
     return res.status(400).send('Missing required query parameters')
   }
 
-  // Get the duration of the video using ffprobe
   const ffprobeCommand = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`
-  exec(ffprobeCommand, (error, stdout, stderr) => {
+
+  exec(ffprobeCommand, (error, stdout) => {
     if (error) {
       console.error('Error getting video duration:', error)
       return res.status(500).send('Error getting video duration')
@@ -105,41 +105,92 @@ app.get('/stream', (req, res) => {
     const durationInSeconds = parseFloat(stdout)
     if (isNaN(durationInSeconds)) {
       console.error('Could not parse video duration')
-      return res.status(500).send('Could not parse video duration')
+      return res.status(500).send('Invalid duration info')
     }
 
     const startTime = startPercent * durationInSeconds
-    const endTime = Math.min(startTime + clipDuration, durationInSeconds)
-
     const tempFilePath = path.join(__dirname, 'temp', `temp_${Date.now()}.mp4`)
-    const ffmpegStreamCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c copy "${tempFilePath}"`
 
-    console.log(`Executing command: ${ffmpegStreamCommand}`)
-    exec(ffmpegStreamCommand, (error, stdout, stderr) => {
-      if (error) {
-        console.error('Error streaming video:', error)
-        console.error('stderr:', stderr)
-        return res.status(500).send('Error streaming video')
-      }
+    const ffmpegCommandCopy = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -movflags +faststart -c copy "${tempFilePath}"`
+    const ffmpegCommandReencode = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -movflags +faststart -c:v libx264 -preset ultrafast -c:a aac "${tempFilePath}"`
 
-      console.log(`Streaming video: ${tempFilePath}`)
-      res.sendFile(tempFilePath, err => {
-        if (err) {
-          console.error('Error sending file:', err)
-        } else {
-          console.log(`Successfully sent: ${tempFilePath}`)
-        }
-        fs.unlink(tempFilePath, err => {
-          if (err) {
-            console.error('Error deleting temp file:', err)
-          } else {
-            console.log(`Deleted temp file: ${tempFilePath}`)
+    console.log(`🧪 Tentando gerar clipe com copy:`)
+    console.log(ffmpegCommandCopy)
+
+    exec(ffmpegCommandCopy, (copyErr, copyStdout, copyStderr) => {
+      if (copyErr) {
+        console.warn('⚠️ copy falhou, tentando reencode...')
+        console.log(ffmpegCommandReencode)
+
+        exec(ffmpegCommandReencode, (reErr, reStdout, reStderr) => {
+          if (reErr) {
+            console.error('❌ Reencode falhou também:', reErr)
+            return res.status(500).send('Erro ao gerar vídeo')
           }
+
+          streamVideoToClient(tempFilePath, req, res)
         })
-      })
+      } else {
+        streamVideoToClient(tempFilePath, req, res)
+      }
     })
   })
 })
+
+// 🔁 Aguarda o arquivo estar legível
+function waitForFileReady(filePath, maxAttempts = 10, interval = 200) {
+  return new Promise((resolve, reject) => {
+    let attempts = 0
+
+    const check = () => {
+      fs.open(filePath, 'r', (err, fd) => {
+        if (!err) {
+          fs.close(fd, () => resolve())
+        } else {
+          if (attempts++ < maxAttempts) {
+            setTimeout(check, interval)
+          } else {
+            reject(new Error('File not ready after multiple attempts'))
+          }
+        }
+      })
+    }
+
+    check()
+  })
+}
+
+// 📤 Envia o vídeo com stream
+function streamVideoToClient(tempFilePath, req, res) {
+  waitForFileReady(tempFilePath)
+    .then(() => {
+      res.setHeader('Content-Type', 'video/mp4')
+      res.setHeader('Cache-Control', 'no-store')
+
+      const stream = fs.createReadStream(tempFilePath)
+
+      req.on('close', () => {
+        console.log('Client disconnected during stream.')
+        stream.destroy()
+      })
+
+      stream.pipe(res)
+
+      res.on('finish', () => {
+        fs.unlink(tempFilePath, err => {
+          if (err) console.error('Error deleting temp file:', err)
+          else console.log(`Deleted temp file: ${tempFilePath}`)
+        })
+      })
+    })
+    .catch(err => {
+      console.error('❌ Timeout esperando arquivo pronto:', err)
+      res.status(500).send('Erro ao acessar vídeo gerado')
+    })
+}
+
+
+
 
 app.get('/folders', (req, res) => {
   try {
