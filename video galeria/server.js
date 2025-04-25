@@ -227,89 +227,95 @@ app.get('/folders', (req, res) => {
 
 
 app.post('/cut', (req, res) => {
-  const videoPath = req.query.path
-  const startPercent = parseFloat(req.query.start)
-  const clipDuration = parseFloat(req.query.clipDuration)
-  const action = req.query.action
+  const enableProxy = false; // 🔁 Altere para true se quiser ativar criação de proxy
+
+  const videoPath = req.query.path;
+  const startPercent = parseFloat(req.query.start);
+  const clipDuration = parseFloat(req.query.clipDuration);
+  const action = req.query.action;
 
   if (!videoPath || isNaN(startPercent) || isNaN(clipDuration)) {
-    console.error('Missing required query parameters')
-    return res.status(400).send('Missing required query parameters')
+    console.error('Missing required query parameters');
+    return res.status(400).send('Missing required query parameters');
   }
 
-  const videoName = path
-    .basename(videoPath, path.extname(videoPath))
-    .slice(0, 8) // Pega os primeiros 8 caracteres do título
-  const outputFolder = path.join(__dirname, 'output')
-  if (!fs.existsSync(outputFolder)) {
-    fs.mkdirSync(outputFolder)
+  const videoName = path.basename(videoPath, path.extname(videoPath)).slice(0, 8); // Pega os primeiros 8 caracteres
+  const outputFolder = path.join(__dirname, 'output');
+  const proxyFolder = path.join(outputFolder, 'proxy');
+
+  if (!fs.existsSync(outputFolder)) fs.mkdirSync(outputFolder);
+  if (enableProxy && !fs.existsSync(proxyFolder)) fs.mkdirSync(proxyFolder);
+
+  const startTime = Math.floor(startPercent * 3600); // ajuste se preferir outra base
+  const endTime = startTime + Math.floor(clipDuration);
+
+  const baseName = `${videoName}_${startTime}-${endTime}`;
+  const tempOutputPath = path.join(outputFolder, `${baseName}.temp.mp4`);
+  const finalOutputPath = path.join(outputFolder, `${baseName}.mp4`);
+  const proxyPath = path.join(proxyFolder, `${baseName}.mp4`);
+
+  if (fs.existsSync(finalOutputPath) && (!enableProxy || fs.existsSync(proxyPath))) {
+    return res.status(200).send({
+      message: enableProxy
+        ? 'Corte e proxy já existem'
+        : 'Corte já existe',
+      outputFilePath: finalOutputPath,
+      proxyFilePath: enableProxy ? proxyPath : undefined,
+    });
   }
 
-  const ffprobeCommand = `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${videoPath}"`
-  exec(ffprobeCommand, (error, stdout) => {
-    if (error) {
-      console.error('Error getting video duration:', error)
-      return res.status(500).send('Error getting video duration')
+  const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${tempOutputPath}"`;
+  exec(ffmpegCutCommand, cutError => {
+    if (cutError) {
+      console.error('Error cutting video:', cutError);
+      return res.status(500).send({ message: 'Erro ao cortar o vídeo' });
     }
 
-    const durationInSeconds = parseFloat(stdout)
-    const startTime = Math.floor(startPercent * durationInSeconds) // Converte para segundos inteiros
-    const endTime = startTime + Math.floor(clipDuration)
+    console.log('✅ Corte finalizado:', tempOutputPath);
 
-    const uniqueName = `${videoName}_${startTime}-${endTime}`
-    const outputFilePath = path.join(outputFolder, `${uniqueName}.mp4`)
-    const proxyFolder = path.join(outputFolder, 'proxy')
-    if (!fs.existsSync(proxyFolder)) {
-      fs.mkdirSync(proxyFolder)
-    }
-
-    const proxyFilePath = path.join(proxyFolder, `${uniqueName}.mp4`)
-
-    // Verifica se o arquivo já existe
-    if (fs.existsSync(outputFilePath) && fs.existsSync(proxyFilePath)) {
-      console.log('Cut and proxy already exist.')
-      return res.status(200).send({
-        message: 'Cut and proxy already exist',
-        outputFilePath,
-        proxyFilePath,
-      })
-    }
-
-    const ffmpegCutCommand = `ffmpeg -ss ${startTime} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -c:a aac -strict experimental "${outputFilePath}"`
-    exec(ffmpegCutCommand, cutError => {
-      if (cutError) {
-        console.error('Error cutting video:', cutError)
-        return res.status(500).send({ message: 'Error cutting video' })
+    fs.rename(tempOutputPath, finalOutputPath, renameErr => {
+      if (renameErr) {
+        console.error('❌ Erro ao renomear para .mp4:', renameErr);
+        return res.status(500).send({ message: 'Erro ao finalizar vídeo' });
       }
 
-      console.log('Cutting finished')
+      console.log('✅ Arquivo finalizado:', finalOutputPath);
 
-      if (!fs.existsSync(proxyFilePath)) {
-        const ffmpegProxyCommand = `ffmpeg -i "${outputFilePath}" -vf "scale=640:trunc(ih/2)*2" -c:v libx264 -c:a aac -b:a 128k -ac 2 "${proxyFilePath}"`
+      if (!enableProxy) {
+        return res.status(200).send({
+          message: 'Corte finalizado com sucesso',
+          outputFilePath: finalOutputPath,
+        });
+      }
+
+      // Proxy ativado:
+      if (!fs.existsSync(proxyPath)) {
+        const ffmpegProxyCommand = `ffmpeg -i "${finalOutputPath}" -vf "scale=640:trunc(ih/2)*2" -c:v libx264 -c:a aac -b:a 128k -ac 2 "${proxyPath}"`;
         exec(ffmpegProxyCommand, proxyError => {
           if (proxyError) {
-            console.error('Error creating proxy:', proxyError)
-            return res.status(500).send({ message: 'Error creating proxy' })
-          } else {
-            console.log('Proxy created:', proxyFilePath)
-            return res.status(200).send({
-              message: 'Cut and proxy creation successful',
-              outputFilePath,
-              proxyFilePath,
-            })
+            console.error('Error creating proxy:', proxyError);
+            return res.status(500).send({ message: 'Corte criado, mas houve erro ao gerar o proxy' });
           }
-        })
+
+          console.log('✅ Proxy criado:', proxyPath);
+          return res.status(200).send({
+            message: 'Corte e proxy criados com sucesso',
+            outputFilePath: finalOutputPath,
+            proxyFilePath: proxyPath,
+          });
+        });
       } else {
-        console.log('Proxy already exists:', proxyFilePath)
+        console.log('Proxy já existe:', proxyPath);
         return res.status(200).send({
-          message: 'Cutting successful, proxy already exists',
-          outputFilePath,
-          proxyFilePath,
-        })
+          message: 'Corte finalizado, proxy já existia',
+          outputFilePath: finalOutputPath,
+          proxyFilePath: proxyPath,
+        });
       }
-    })
-  })
-})
+    });
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
