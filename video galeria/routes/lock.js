@@ -1,22 +1,21 @@
 const express = require('express')
 const fs = require('fs')
-const path = require('path')
 const router = express.Router()
 
 const { log } = require('../utils/logger')
+const { LOCK_FILE } = require('../utils/paths')
 
-const lockFile = path.join(__dirname, '..', 'output', 'lock.txt')
 
 router.get('/lock', (req, res) => {
   log('lock', null, 'groupCollapsed')
   try {
-    if (fs.existsSync(lockFile)) {
-      const content = fs.readFileSync(lockFile, 'utf-8')
+    if (fs.existsSync(LOCK_FILE)) {
+      const content = fs.readFileSync(LOCK_FILE, 'utf-8')
       log('lock', `🔒 Lock ativo: ${content}`, 'info')
       res.status(200).send(content)
     } else {
       log('lock', '🔓 Nenhum lock ativo', 'info')
-      res.status(204).send() // No Content
+      res.status(204).send()
     }
   } catch (err) {
     log('lock', `Erro ao ler lock: ${err.message}`, 'error')
@@ -29,7 +28,7 @@ router.post('/lock', (req, res) => {
   log('lock', null, 'groupCollapsed')
   try {
     const reason = req.query.reason || 'manual'
-    fs.writeFileSync(lockFile, reason)
+    fs.writeFileSync(LOCK_FILE, reason)
     log('lock', `🔒 Lock ativado: ${reason}`, 'info')
     res.status(200).send('Lock ativado')
   } catch (err) {
@@ -42,8 +41,8 @@ router.post('/lock', (req, res) => {
 router.delete('/lock', (req, res) => {
   log('lock', null, 'groupCollapsed')
   try {
-    if (fs.existsSync(lockFile)) {
-      fs.unlinkSync(lockFile)
+    if (fs.existsSync(LOCK_FILE)) {
+      fs.unlinkSync(LOCK_FILE)
       log('lock', '🔓 Lock removido', 'info')
     } else {
       log('lock', '🔓 Nenhum lock para remover', 'info')

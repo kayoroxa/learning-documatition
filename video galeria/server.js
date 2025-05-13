@@ -2,9 +2,10 @@ const express = require('express')
 const fs = require('fs')
 const path = require('path')
 const { warmupCache, getAllVideos, loadCache } = require('./utils/warmupCache')
-const { VIDEOS_BASE_PATH, DURATION_CACHE_FILE } = require('./utils/paths')
+const { VIDEOS_BASE_PATH, DURATION_CACHE_FILE, PREVIEWS_PATH, FINAL_PATH, OUTPUT_PATH } = require('./utils/paths') 
 const { log } = require('./utils/logger')
 const { cleanPreviews } = require('./utils/cleanup')
+
 
 const app = express()
 const port = 3000
@@ -15,24 +16,23 @@ const ENABLE_WARMUP_CACHE = false
 // 🔘 Altere para true para limpar previews antigos ao iniciar
 const ENABLE_CLEAN_PREVIEWS = true
 
-const outputPath = path.join(__dirname, 'output')
-const previewsPath = path.join(outputPath, 'previews')
-const finalPath = path.join(outputPath, 'final')
+
 
 async function start() {
   log('server', null, 'groupCollapsed')
 
-  if (!fs.existsSync(previewsPath)) {
-    fs.mkdirSync(previewsPath, { recursive: true })
-    log('server', '📁 Pasta /previews criada', 'info')
+  if (!fs.existsSync(PREVIEWS_PATH)) {
+  fs.mkdirSync(PREVIEWS_PATH, { recursive: true })
+  log('server', '📁 Pasta /previews criada', 'info')
   }
 
-  if (!fs.existsSync(finalPath)) {
-    fs.mkdirSync(finalPath, { recursive: true })
+  if (!fs.existsSync(FINAL_PATH)) {
+    fs.mkdirSync(FINAL_PATH, { recursive: true })
     log('server', '📁 Pasta /final criada', 'info')
   }
 
-  app.use('/output', express.static(outputPath))
+
+  app.use('/output', express.static(OUTPUT_PATH))
   app.use(express.static(path.join(__dirname, 'public')))
 
   if (ENABLE_WARMUP_CACHE) {

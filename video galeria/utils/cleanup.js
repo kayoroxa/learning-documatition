@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const { log } = require('./logger')
+const { PREVIEWS_PATH } = require('./paths')
 
-const previewsDir = path.join(__dirname, '..', 'output', 'previews')
 
 function isOldEnough(stats) {
   const idadeMin = (Date.now() - stats.mtimeMs) / 1000 / 60
@@ -18,10 +18,10 @@ function cleanPreviews() {
   const exemplos = []
 
   try {
-    const files = fs.readdirSync(previewsDir).filter(f => f.endsWith('.mp4'))
+    const files = fs.readdirSync(PREVIEWS_PATH).filter(f => f.endsWith('.mp4'))
 
     for (const file of files) {
-      const fullPath = path.join(previewsDir, file)
+      const fullPath = path.join(PREVIEWS_PATH, file)
 
       try {
         const stats = fs.statSync(fullPath)
@@ -45,7 +45,7 @@ function cleanPreviews() {
       if (extra) log('cleanup', extra, 'info')
     }
   } catch (err) {
-    log('cleanup', `❌ Erro ao acessar previewsDir: ${err.message}`, 'error')
+    log('cleanup', `❌ Erro ao acessar PREVIEWS_PATH: ${err.message}`, 'error')
   }
 }
 

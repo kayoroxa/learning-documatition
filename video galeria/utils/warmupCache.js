@@ -3,14 +3,14 @@ const path = require('path')
 const crypto = require('crypto')
 const { exec } = require('child_process')
 const { promisify } = require('util')
-const { VIDEOS_BASE_PATH } = require('./paths')
+const { VIDEOS_BASE_PATH, DURATION_CACHE_FILE } = require('./paths')
 const { getCodecs, findGoodSceneStart } = require('./sceneDetector')
 const { log } = require('./logger')
 
 const execAsync = promisify(exec)
 const limit = require('p-limit')(2)
 
-const CACHE_FILE = path.join(__dirname, '..', 'durationCache.json')
+const CACHE_FILE = DURATION_CACHE_FILE
 const cache = {}
 
 function loadCache() {
