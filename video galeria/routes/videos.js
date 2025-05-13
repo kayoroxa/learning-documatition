@@ -69,6 +69,15 @@ router.get('/videos', (req, res) => {
     }
   }
 
+  // helper local
+  function repeatToFill(arr, total) {
+    const result = []
+    while (result.length < total) {
+      result.push(...shuffle(arr))
+    }
+    return result.slice(0, total)
+  }
+
   try {
     let filePaths = []
 
@@ -79,7 +88,6 @@ router.get('/videos', (req, res) => {
       : []
 
     const shouldBalance = folder === ROOT_FOLDER_KEY
-    // ^ balanceia só na raiz
 
     if (shouldBalance) {
       const allFolders = [basePath, ...shuffle(subdirs)]
@@ -93,8 +101,16 @@ router.get('/videos', (req, res) => {
       filePaths = shuffle(filePaths).slice(0, limit)
       log('videos', `📊 Balanceado entre ${allFolders.length} pastas`, 'info')
     } else {
-      // ← ramo simplificado
-      filePaths = shuffle(listVideosRecursively(basePath)).slice(0, limit)
+      let rawPaths = shuffle(listVideosRecursively(basePath))
+
+      if (rawPaths.length < limit) {
+        log('videos', `🔁 Repetindo vídeos para preencher os ${limit} slots`, 'info')
+        rawPaths = repeatToFill(rawPaths, limit)
+      } else {
+        rawPaths = rawPaths.slice(0, limit)
+      }
+
+      filePaths = rawPaths
       log('videos', `📄 Pasta "${folder}" sem balanceamento`, 'info')
     }
 
