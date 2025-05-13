@@ -175,7 +175,7 @@ function createSlotsIfNeeded() {
       'slot video-card relative bg-black rounded overflow-hidden h-60 flex items-center justify-center loading'
 
     const video = document.createElement('video')
-    video.className = 'w-full h-full object-cover rounded shadow pointer-events-none'
+    video.className = 'w-full h-full object-cover rounded shadow'
     video.muted = true
     video.loop = true
     video.autoplay = true
@@ -251,6 +251,8 @@ export async function reloadVideoWithNewStart(videoElem, video) {
   cancelTask(taskKey)
   const controller = createKillableTask(taskKey)
   const { signal } = controller
+  logStep('reload', `Chamado com: ${JSON.stringify(video)}`, 'info')
+
 
   if (!video?.original || !video?.duration) {
     logStep('reload', '❌ Dados inválidos para vídeo', 'error')

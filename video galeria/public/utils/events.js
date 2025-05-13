@@ -39,7 +39,13 @@ export function bindRightClickReload() {
     e.preventDefault()
 
     const slot = videoElem.closest('.video-card')
-    const index = Array.from(gallery.children).indexOf(slot)
+    const videoCards = Array.from(gallery.querySelectorAll('.video-card'))
+    const index = videoCards.indexOf(slot)
+    if (index === -1) {
+      logStep('rightClick', '⚠️ Slot não encontrado na lista de video-cards', 'warn')
+      return
+    }
+
     const folder = document.body.dataset.currentFolder
     if (index < 0 || !folder) return
 
