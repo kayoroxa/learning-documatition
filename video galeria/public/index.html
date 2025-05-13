@@ -6,22 +6,62 @@
     <title>Video Gallery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      /* 🎞️ Animações */
       @keyframes fadeBlink {
-        0% {
-          opacity: 0.4;
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0.4;
-        }
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
       }
-
+    
+      @keyframes fadeIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+    
+      @keyframes fadeOut {
+        to { opacity: 0; transform: translateY(-10px); }
+      }
+    
+      @keyframes fadeInOut {
+        0%   { opacity: 0; transform: translateX(100%) rotateX(10deg); }
+        10%  { opacity: 1; transform: translateX(0) rotateX(0); }
+        90%  { opacity: 1; transform: translateX(0) rotateX(0); }
+        100% { opacity: 0; transform: translateX(100%) rotateX(10deg); }
+      }
+    
+      /* ✨ Efeitos e interações */
       .fade-blink {
         animation: fadeBlink 1.5s infinite;
       }
-
+    
+      .video-card {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+    
+      .video-card:hover {
+        transform: scale(1.01);
+      }
+    
+      .video-card:hover video {
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+      }
+    
+      .active-folder {
+        background-color: #1e40af !important;
+      }
+    
+      /* 🛎️ Notificações */
+      .notification-container {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    
       .notification {
         display: flex;
         align-items: center;
@@ -31,51 +71,46 @@
         padding: 1rem 1.5rem;
         border-radius: 12px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
-        animation: fadeInOut 5s forwards;
         max-width: 350px;
         font-size: 1rem;
         font-family: 'Arial', sans-serif;
         transform: perspective(500px) rotateX(10deg);
+        animation: fadeInOut 5s forwards;
       }
-
+    
       .notification .emoji {
         font-size: 1.5rem;
       }
-
+    
       .notification.success {
-        background-color: #16a34a; /* Verde */
+        background-color: #16a34a;
       }
-
+    
       .notification.error {
-        background-color: #dc2626; /* Vermelho */
+        background-color: #dc2626;
       }
-
+    
       .notification.info {
-        background-color: #2563eb; /* Azul */
+        background-color: #2563eb;
       }
-
-      @keyframes fadeInOut {
-        0% {
-          opacity: 0;
-          transform: translateX(100%) rotateX(10deg);
-        }
-        10% {
-          opacity: 1;
-          transform: translateX(0) rotateX(0);
-        }
-        90% {
-          opacity: 1;
-          transform: translateX(0) rotateX(0);
-        }
-        100% {
-          opacity: 0;
-          transform: translateX(100%) rotateX(10deg);
-        }
+    
+      .notification.warn {
+        background-color: #facc15;
+        color: #1e293b;
       }
-      .active-folder {
-    background-color: #1e40af !important; /* Azul escuro fixo */
-  }
-    </style>
+    
+      .fade-in {
+        opacity: 0;
+        transform: translateY(-10px);
+        animation: fadeIn 0.3s forwards;
+      }
+    
+      .fade-out {
+        opacity: 1;
+        transform: translateY(0);
+        animation: fadeOut 0.5s forwards;
+      }
+    </style>    
   </head>
   <body class="bg-gray-800 text-white flex justify-center items-center min-h-screen">
     <div class="flex flex-col items-center w-full max-w-6xl p-3">
@@ -85,6 +120,7 @@
   
       <!-- Galeria -->
       <div id="gallery" class="grid grid-cols-4 gap-3 w-full"></div>
+      
 
       <!-- Loading -->
       <div id="galleryLoading" class="text-center text-blue-400 py-4 hidden text-sm italic">Carregando vídeos...</div>
@@ -101,6 +137,6 @@
   
     </div>
   
-    <script type="module" src="script.js"></script>
+    <script type="module" src="./init.js"></script>
   </body>
 </html>

@@ -1,1 +1,5 @@
 zip
+legacy
+*.json
+*.lnk
+*.ini
