@@ -3,3 +3,4 @@ node_modules
 *.png
 
 *.mp4
+durationCache.json
