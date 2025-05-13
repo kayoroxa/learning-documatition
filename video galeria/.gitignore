@@ -3,3 +3,4 @@ legacy
 *.json
 *.lnk
 *.ini
+*.log

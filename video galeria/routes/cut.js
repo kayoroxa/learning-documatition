@@ -1,16 +1,16 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
-const { exec } = require('child_process')
 const router = express.Router()
 
-const { sanitizePath, VIDEOS_BASE_PATH } = require('../utils/paths')
-const { getPreviewFilename, limitFfmpeg, createPreviewLimited } = require('../utils/ffmpegQueue')
+const { sanitizePath, VIDEOS_BASE_PATH, FINAL_PATH, PREVIEWS_PATH  } = require('../utils/paths')
+const {
+  getPreviewFilename,
+  createCutLimited,
+} = require('../utils/ffmpegQueue')
 const { getCacheEntry } = require('../utils/cache')
 const { log } = require('../utils/logger')
-
-const finalDir = path.join(__dirname, '..', 'output', 'final')
-const previewsDir = path.join(__dirname, '..', 'output', 'previews')
+const { CUT_OPTS } = require('../utils/ffmpegConfig')
 
 router.post('/cut', async (req, res) => {
   const videoPath = sanitizePath(req.query.path)
@@ -27,51 +27,45 @@ router.post('/cut', async (req, res) => {
 
   const relKey = path.relative(VIDEOS_BASE_PATH, videoPath).replaceAll('\\', '/')
   const meta = getCacheEntry(relKey) || {}
-  const useCopy = !!meta.compatible
+  const compatible = !!meta.compatible
 
   const previewName = getPreviewFilename(videoPath, start, clipDuration)
-  const previewPath = path.join(previewsDir, previewName)
-  const finalPath = path.join(finalDir, previewName)
+  const previewPath = path.join(PREVIEWS_PATH, previewName)
+  const finalPath = path.join(FINAL_PATH, previewName)
 
-  try {
+    try {
     if (fs.existsSync(finalPath)) {
       log('cut', `ℹ️ Já existia: ${previewName}`, 'info')
       log('cut', null, 'end')
       return res.status(200).send({ message: 'Corte já existe', output: `/output/final/${previewName}` })
     }
 
-    if (useCopy && fs.existsSync(previewPath)) {
-      log('cut', `♻️ Reutilizando preview existente: ${previewName}`, 'info')
+    if (CUT_OPTS.ALLOW_PREVIEW_AS_SRC && fs.existsSync(previewPath)) {
       fs.copyFileSync(previewPath, finalPath)
+      log('cut', `♻️ Reutilizando preview existente (rollback ativo): ${previewName}`, 'warn')
       log('cut', null, 'end')
-      return res.status(200).send({ message: 'Corte criado via copy', output: `/output/final/${previewName}` })
+      return res.status(200).send({ message: 'Corte criado via preview reutilizado', output: `/output/final/${previewName}` })
     }
 
-    log('cut', `🎬 Gerando preview: ${previewName}`, 'info')
-    const created = await createPreviewLimited(videoPath, start, clipDuration, useCopy)
-    fs.copyFileSync(created, finalPath)
-    log('cut', `✅ Criado via preview copy: ${previewName}`, 'info')
+    log('cut', `🎬 Gerando corte novo: ${previewName}`, 'info')
+    const resultPath = await createCutLimited(videoPath, start, clipDuration, compatible, finalPath)
+
+    if (!fs.existsSync(resultPath)) {
+      log('cut', `⚠️ FFmpeg retornou sucesso, mas arquivo não foi encontrado: ${resultPath}`, 'warn')
+      log('cut', null, 'end')
+      return res.status(500).send('Arquivo não foi gerado corretamente')
+    }
+
+    log('cut', `✅ Corte criado: ${previewName}`, 'info')
     log('cut', null, 'end')
-    return res.status(200).send({ message: 'Corte criado via preview', output: `/output/final/${previewName}` })
+    return res.status(200).send({ message: 'Corte criado com sucesso', output: `/output/final/${previewName}` })
 
   } catch (err) {
-    log('cut', `❌ Erro ao gerar/copy: ${err.message}`, 'error')
-
-    const cmd = `ffmpeg -y -ss ${start} -i "${videoPath}" -t ${clipDuration} -c:v libx264 -preset ultrafast -c:a aac "${finalPath}"`
-
-    try {
-      await limitFfmpeg(() =>
-        new Promise((yes, no) => exec(cmd, err => (err ? no(err) : yes())))
-      )()
-      log('cut', `✅ Criado via re-encode fallback: ${previewName}`, 'info')
-      log('cut', null, 'end')
-      return res.status(200).send({ message: 'Corte criado via fallback', output: `/output/final/${previewName}` })
-    } catch (fallbackErr) {
-      log('cut', `❌ Fallback também falhou: ${fallbackErr.message}`, 'error')
-      log('cut', null, 'end')
-      return res.status(500).send('Erro ao cortar vídeo')
-    }
+    log('cut', `❌ Erro ao gerar corte: ${err.message}`, 'error')
+    log('cut', null, 'end')
+    return res.status(500).send('Erro ao cortar vídeo')
   }
+
 })
 
 module.exports = router

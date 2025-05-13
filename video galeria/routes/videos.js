@@ -72,39 +72,30 @@ router.get('/videos', (req, res) => {
   try {
     let filePaths = []
 
-    const subdirs = fs.readdirSync(basePath, { withFileTypes: true })
-      .filter(e => e.isDirectory())
-      .map(e => path.join(basePath, e.name))
+    const subdirs = folder === ROOT_FOLDER_KEY
+      ? fs.readdirSync(basePath, { withFileTypes: true })
+          .filter(e => e.isDirectory())
+          .map(e => path.join(basePath, e.name))
+      : []
 
-    const shouldBalance = folder === ROOT_FOLDER_KEY || subdirs.length > 0
+    const shouldBalance = folder === ROOT_FOLDER_KEY
+    // ^ balanceia só na raiz
 
     if (shouldBalance) {
       const allFolders = [basePath, ...shuffle(subdirs)]
-      const perFolderLimit = Math.max(1, Math.floor(limit * 0.2))
-
-      log('videos', `🎛️ Balanceamento: até ${perFolderLimit} por pasta`, 'info')
+      const perFolderLimit = Math.max(1, Math.ceil(limit / allFolders.length))
 
       for (const folderPath of allFolders) {
         const localVideos = listVideosRecursively(folderPath)
-        const sampled = shuffle(localVideos).slice(0, perFolderLimit)
-        filePaths.push(...sampled)
+        filePaths.push(...shuffle(localVideos).slice(0, perFolderLimit))
       }
 
       filePaths = shuffle(filePaths).slice(0, limit)
-
       log('videos', `📊 Balanceado entre ${allFolders.length} pastas`, 'info')
     } else {
-      filePaths = fs.readdirSync(basePath)
-        .filter(name => {
-          const full = path.join(basePath, name)
-          return fs.lstatSync(full).isFile() && /\.(mp4|mkv|avi|mov|wmv|webm)$/i.test(name)
-        })
-        .map(name => path.join(basePath, name))
-
-      shuffle(filePaths)
-      filePaths = filePaths.slice(0, limit)
-
-      log('videos', `📄 Pasta simples sem subpastas`, 'info')
+      // ← ramo simplificado
+      filePaths = shuffle(listVideosRecursively(basePath)).slice(0, limit)
+      log('videos', `📄 Pasta "${folder}" sem balanceamento`, 'info')
     }
 
     const videos = filePaths
