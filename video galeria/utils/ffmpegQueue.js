@@ -156,8 +156,8 @@ function createCutLimited(videoPath, start, duration, compatible, outputPath, si
 
     const reencodeArgs = [
       '-t', duration,
-      '-map', '0',
-      '-map', '-0:2',  // remove attached PNG
+      '-map', '0:v',
+      '-map', '0:a',  // remover todos metadados que mp4 não suporta
       '-c:v', 'libx264',
       '-preset', CUT_OPTS.HQ_PRESET,
       '-crf', CUT_OPTS.HQ_CRF,
