@@ -157,6 +157,7 @@ function createCutLimited(videoPath, start, duration, compatible, outputPath, si
     const reencodeArgs = [
       '-t', duration,
       '-map', '0',
+      '-map', '-0:2',  // remove attached PNG
       '-c:v', 'libx264',
       '-preset', CUT_OPTS.HQ_PRESET,
       '-crf', CUT_OPTS.HQ_CRF,

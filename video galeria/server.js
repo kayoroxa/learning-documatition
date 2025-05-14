@@ -71,6 +71,8 @@ async function start() {
   app.use('/', require('./routes/lock'))
   app.use('/', require('./routes/open-explorer'))
   app.use('/', require('./routes/diagnostic-duration'))
+  app.use('/test', require('./routes/test'))
+
 
 
   app.listen(port, () => {
